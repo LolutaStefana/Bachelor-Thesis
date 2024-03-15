@@ -1,0 +1,79 @@
+.login-container {
+    display: flex;
+    
+    align-items: center; /* Center the content horizontally */
+    max-width: 900px; /* Set the maximum width */
+    margin: auto;
+    background-color: #777a8f3a;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.281);
+    border-radius: 8px;
+    padding: 80px; /* Add padding */
+}
+.photo-container {
+    flex: 1; 
+    margin-top: 50px;
+    display: flex;
+    justify-content: center; /* Center the SVG horizontally */
+}
+.title-container {
+    margin: 20px auto; /* Add margin and center the title horizontally */
+    text-align: center; /* Center the text horizontally */
+    margin-bottom: 70px;
+}
+
+.title-container h1 {
+    font-family: Arial, sans-serif !important; /* Change the font family */
+    font-weight: bold !important;
+}
+.photo-and-writing-container {
+    display: flex;
+    flex: 1;
+    max-width: 400px;
+    flex-direction: column;
+}
+
+.form-container {
+    flex: 1;
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+   
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container h1 {
+    margin-bottom: 20px;
+}
+
+.form-container .MuiFormControl-root {
+    margin-bottom: 10px;
+}
+
+.form-container .MuiButton-root {
+    margin-top: 20px;
+    max-width: 100px;
+    align-self: flex-end; 
+}
+
+
+
+.form-container .MuiSnackbar-root {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.form-container .MuiSnackbarContent-root {
+    background-color: #f44336;
+}
+
+.photo-container svg {
+    width: 300px; 
+    height: auto; 
+}

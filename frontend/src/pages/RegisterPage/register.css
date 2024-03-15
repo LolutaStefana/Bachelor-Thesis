@@ -1,0 +1,29 @@
+.register-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #777a8f3a;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.281);
+}
+
+.register-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-container h5 {
+    margin-bottom: 20px;
+}
+
+.register-container .MuiFormControl-root {
+    margin-bottom: 10px;
+}
+
+.register-container .MuiButton-root {
+    margin-top: 20px;
+}
+
+.register-container .MuiTypography-root.error {
+    color: #f44336;
+}
