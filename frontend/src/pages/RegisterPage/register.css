@@ -1,15 +1,37 @@
 .register-container {
-    max-width: 400px;
+    max-width: 800px;
     margin: auto;
-    padding: 20px;
+    padding: 60px;
     border-radius: 8px;
     background-color: #777a8f3a;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.281);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .register-container form {
     display: flex;
     flex-direction: column;
+    width: 100%;
+}
+
+.input-groups {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; 
+    margin-bottom: 20px; 
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1; 
+    margin-right: 10px; 
+}
+
+.input-group:last-child {
+    margin-right: 0; 
 }
 
 .register-container h5 {
@@ -24,6 +46,22 @@
     margin-top: 20px;
 }
 
-.register-container .MuiTypography-root.error {
-    color: #f44336;
+.register-container .MuiTypography-root.error, .register-container .MuiFormHelperText-root.Mui-error {
+    color: #f44336; 
+}
+
+.register-button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%; 
+  }
+
+@media (max-width: 768px) {
+    .input-groups {
+        flex-direction: column;
+    }
+    .input-group {
+        margin-right: 0; 
+        margin-bottom: 20px; 
+    }
 }
