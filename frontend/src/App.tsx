@@ -6,6 +6,7 @@ import Login from './pages/LoginPage/Login';
 import Register from './pages/RegisterPage/Register';
 import StartPage from './pages/StartPage/StartPage';
 import HomePage from './pages/Homepage/HomePage';
+import RegisterTherapist from './pages/RegisterTherapistPage/RegisterTherapist';
 
 function App() {
     const [name, setName] = useState('');
@@ -20,6 +21,8 @@ function App() {
                         <Route path="/homepage" element={<HomePage/>} />
                         <Route path="/login" element={<Login setName={setName} />} />
                         <Route path="/register" element={<Register />} />
+                        <Route path="/register-therapist" element={<RegisterTherapist />} />
+                        
                     </Routes>
                 </main>
             </BrowserRouter>

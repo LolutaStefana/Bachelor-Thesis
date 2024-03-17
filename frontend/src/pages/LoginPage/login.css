@@ -1,28 +1,28 @@
 .login-container {
     display: flex;
     
-    align-items: center; /* Center the content horizontally */
-    max-width: 900px; /* Set the maximum width */
+    align-items: center; 
+    max-width: 900px;
     margin: auto;
     background-color: #777a8f3a;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.281);
     border-radius: 8px;
-    padding: 80px; /* Add padding */
+    padding: 80px; 
 }
 .photo-container {
     flex: 1; 
     margin-top: 50px;
     display: flex;
-    justify-content: center; /* Center the SVG horizontally */
+    justify-content: center; 
 }
 .title-container {
-    margin: 20px auto; /* Add margin and center the title horizontally */
-    text-align: center; /* Center the text horizontally */
+    margin: 20px auto; 
+    text-align: center; 
     margin-bottom: 70px;
 }
 
 .title-container h1 {
-    font-family: Arial, sans-serif !important; /* Change the font family */
+    font-family: Arial, sans-serif !important; 
     font-weight: bold !important;
 }
 .photo-and-writing-container {

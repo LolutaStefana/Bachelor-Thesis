@@ -40,11 +40,13 @@ const Nav = (props: { name: string, setName: (name: string) => void }) => {
             <div className="container-fluid">
                 {props.name === '' ? (
                      <Link to="/" className="navbar-brand">
-                     <img src={lotusSvg} alt="Lotus" style={{ width: '50px', height: '50px', fill:'white' }} />
+                     <img src={lotusSvg} alt="Lotus" style={{ width: '50px', height: '50px'}} />
+                     <span style={{ fontFamily: 'Brush Script MT, Brush Script Std, cursive', fontSize: '20px', color: 'gradient', marginLeft: '10px' }}>PeacePlan</span>
                  </Link>
              ) : (
                  <Link to="/homepage" className="navbar-brand">
-                     <img src={lotusSvg} alt="Lotus" style={{ width: '50px', height: '50px',fill:'white' }} />
+                     <img src={lotusSvg} alt="Lotus" style={{ width: '50px', height: '50px' }} />
+                     <span style={{ fontFamily: 'Brush Script MT, Brush Script Std, cursive', fontSize: '20px', color: 'gradient', marginLeft: '10px' }}>PeacePlan</span>
                  </Link>
                 )}
     
