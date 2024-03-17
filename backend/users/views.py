@@ -3,8 +3,23 @@ from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 from .serializers import UserSerializer
 from .models import User
+from rest_framework.generics import ListAPIView
 import jwt, datetime
 
+
+def verify_jwt_token(token):
+    try:
+        payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+    except jwt.ExpiredSignatureError:
+        raise AuthenticationFailed('Unauthenticated!')
+    except jwt.DecodeError:
+        raise AuthenticationFailed('Unauthenticated!')
+
+    user = User.objects.filter(id=payload['id']).first()
+    if user is None:
+        raise AuthenticationFailed('Unauthenticated!')
+
+    return user
 
 # Create your views here.
 class RegisterView(APIView):
@@ -71,3 +86,35 @@ class LogoutView(APIView):
             'message': 'success'
         }
         return response
+
+
+class NormalUserListView(ListAPIView):
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        token = self.request.COOKIES.get('jwt')
+        if not token:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        user = verify_jwt_token(token)
+
+        if not user.is_therapist:
+            raise AuthenticationFailed('Access Denied: Users cannot view other users.')
+
+        return User.objects.filter(is_therapist=False)
+
+
+class TherapistListView(ListAPIView):
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        token = self.request.COOKIES.get('jwt')
+        if not token:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        user = verify_jwt_token(token)
+
+        if user.is_therapist:
+            raise AuthenticationFailed('Access Denied: Therapists cannot view other therapists.')
+
+        return User.objects.filter(is_therapist=True)
