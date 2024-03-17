@@ -125,6 +125,7 @@ const Register = () => {
                     onChange={handleChange}
                     margin="normal"
                     select={key === 'gender'}
+                    
                   >
                     {key === 'gender' && ["Male", "Female", "Other"].map(option => (
                       <MenuItem key={option} value={option}>
