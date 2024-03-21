@@ -1,19 +1,23 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import './startpage.css'; 
 
 const StartPage = () => {
+    const navigate = useNavigate();
+  
     return (
-        <div>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sagittis aliquam malesuada bibendum arcu vitae elementum curabitur vitae. Et leo duis ut diam quam nulla. Tempus urna et pharetra pharetra massa massa ultricies. Et ultrices neque ornare aenean euismod elementum nisi quis eleifend. Urna nec tincidunt praesent semper feugiat nibh sed. Est ante in nibh mauris. Faucibus ornare suspendisse sed nisi lacus. Metus aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices. Sit amet mattis vulputate enim. Neque vitae tempus quam pellentesque. Nibh mauris cursus mattis molestie a iaculis at erat. Sagittis id consectetur purus ut faucibus pulvinar elementum integer enim. Massa tincidunt dui ut ornare lectus sit. Et netus et malesuada fames ac turpis egestas integer. Neque laoreet suspendisse interdum consectetur libero. Non sodales neque sodales ut etiam sit amet nisl.
-
-Mauris ultrices eros in cursus turpis massa tincidunt dui ut. Facilisis sed odio morbi quis commodo odio aenean sed. Posuere sollicitudin aliquam ultrices sagittis orci a scelerisque purus. Quis eleifend quam adipiscing vitae proin. Bibendum ut tristique et egestas quis ipsum suspendisse. Cras sed felis eget velit aliquet. Euismod in pellentesque massa placerat. Sed id semper risus in hendrerit. Sit amet commodo nulla facilisi. In hendrerit gravida rutrum quisque. Risus at ultrices mi tempus imperdiet. Lectus urna duis convallis convallis. Volutpat ac tincidunt vitae semper quis. Morbi tristique senectus et netus et malesuada fames ac turpis. Volutpat blandit aliquam etiam erat velit.
-
-Leo in vitae turpis massa sed elementum tempus. Faucibus a pellentesque sit amet porttitor. Odio ut enim blandit volutpat maecenas volutpat. Sed vulputate mi sit amet mauris. Amet nisl suscipit adipiscing bibendum est. Aenean sed adipiscing diam donec adipiscing tristique. Mattis enim ut tellus elementum sagittis vitae et leo duis. Dolor sit amet consectetur adipiscing elit duis tristique sollicitudin nibh. Cum sociis natoque penatibus et. Quis imperdiet massa tincidunt nunc pulvinar sapien. At ultrices mi tempus imperdiet nulla malesuada pellentesque. Odio pellentesque diam volutpat commodo sed egestas egestas. Nunc lobortis mattis aliquam faucibus purus in.
-
-Convallis convallis tellus id interdum velit laoreet id donec ultrices. Quis eleifend quam adipiscing vitae proin sagittis. Ornare suspendisse sed nisi lacus sed viverra tellus. Lobortis elementum nibh tellus molestie. Lacinia quis vel eros donec ac odio. Odio eu feugiat pretium nibh. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Malesuada fames ac turpis egestas maecenas pharetra convallis posuere morbi. Egestas tellus rutrum tellus pellentesque eu. Elit pellentesque habitant morbi tristique senectus et. Elementum sagittis vitae et leo duis ut diam.
-
-Sit amet consectetur adipiscing elit. Pellentesque pulvinar pellentesque habitant morbi tristique senectus et netus. Nunc sed augue lacus viverra. Vestibulum lectus mauris ultrices eros in cursus turpis massa. Enim nec dui nunc mattis enim ut tellus elementum sagittis. Dui sapien eget mi proin sed libero. Eget magna fermentum iaculis eu. Id faucibus nisl tincidunt eget nullam non nisi est. Morbi non arcu risus quis varius. Mauris a diam maecenas sed enim ut sem. Morbi tincidunt augue interdum velit euismod in pellentesque. Id nibh tortor id aliquet lectus. Quis enim lobortis scelerisque fermentum dui faucibus. Massa massa ultricies mi quis hendrerit dolor. Lacinia quis vel eros donec ac odio tempor orci dapibus. Ac turpis egestas integer eget aliquet. Convallis a cras semper auctor neque vitae tempus quam pellentesque.
+      <div className="start-page">
+        <div className="content">
+          <h1>Welcome to PeacePlan</h1>
+          <p>Your journey to self-improvement starts here.</p>
+          <button onClick={() => navigate('/login')} className="start-button">
+            Get Started
+          </button>
         </div>
+        {/* Adding the transition div */}
+        <div className="footer-transition"></div>
+      </div>
     );
-};
-
-export default StartPage;
+  };
+  
+  export default StartPage;

@@ -1,14 +1,31 @@
 .register-container {
-    max-width: 800px;
+    max-width: 500px;
     margin: auto;
     padding: 60px;
-    border-radius: 8px;
-    background-color: #777a8f3a;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.281);
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 10px rgba(74, 71, 71, 0.2);
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
+.disabled-icon {
+    opacity: 0.3; 
+  }
+.centered-text {
+    text-align: center;
+    font-family: Arial, sans-serif  !important; 
+    color:#5D5F65 ;
+    margin-bottom: 30px !important;
+  }
+  .set-accoutn-text{
+    font-family: Arial, sans-serif  !important; 
+    color:#5D5F65 ;
+    text-align: center !important;
+    margin-bottom: 30px !important;
+
+  }
 
 .register-container form {
     display: flex;
@@ -54,6 +71,12 @@
     display: flex;
     justify-content: center;
     width: 100%; 
+  }
+  .question{
+    font-family: Arial, sans-serif  !important; 
+    color:#5D5F65 ;
+    text-align: left;
+
   }
 
 @media (max-width: 768px) {

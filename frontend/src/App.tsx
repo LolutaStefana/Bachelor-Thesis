@@ -7,6 +7,7 @@ import Register from './pages/RegisterPage/Register';
 import StartPage from './pages/StartPage/StartPage';
 import HomePage from './pages/Homepage/HomePage';
 import RegisterTherapist from './pages/RegisterTherapistPage/RegisterTherapist';
+import Footer from './components/Footer';
 
 function App() {
     const [name, setName] = useState('');
@@ -25,7 +26,9 @@ function App() {
                         
                     </Routes>
                 </main>
+           
             </BrowserRouter>
+            <Footer /> 
         </div>
     );
 }
