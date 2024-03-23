@@ -1,0 +1,21 @@
+.inputs {
+    display: flex;
+    justify-content: center; 
+  }
+  
+  .inputs input {
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
+    font-size: 20px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .inputs input:focus {
+    outline: none;
+    border-color: blue;
+  }
+  
+  

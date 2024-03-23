@@ -10,6 +10,30 @@
     min-height: 100vh;
     position: relative;
   }
+  .faq-section {
+    border-radius: 20px;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 40px;
+    opacity: 0; /* Set initial opacity to 0 */
+    transition: opacity 0.5s ease; /* Apply transition to opacity */
+}
+.content-faq-title {
+    text-align: center;
+    color: rgb(85,89,101);
+    margin-bottom: 35px !important;
+}
+.content-faq-content {
+    text-align: center;
+    color: rgb(85,89,101);
+    margin-bottom: 10px !important;
+}
+/* Add a class to show the FAQ section */
+.show {
+    opacity: 1;
+}
+  
+  
   
   .footer-transition {
     position: absolute;
@@ -28,6 +52,7 @@
     text-align: center;
     color: rgb(85,89,101);
 }
+
 
 .start-button {
     margin-top: 20px;

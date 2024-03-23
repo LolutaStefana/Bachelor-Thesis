@@ -4,6 +4,12 @@ from rest_framework.exceptions import AuthenticationFailed
 from .serializers import UserSerializer
 from .models import User
 from rest_framework.generics import ListAPIView
+from django.conf import settings
+from django.core.mail import send_mail
+from django.http import JsonResponse
+from rest_framework.views import APIView
+from django.utils.crypto import get_random_string
+from django.core.cache import cache
 import jwt, datetime
 
 
@@ -118,3 +124,35 @@ class TherapistListView(ListAPIView):
             raise AuthenticationFailed('Access Denied: Therapists cannot view other therapists.')
 
         return User.objects.filter(is_therapist=True)
+
+
+class Send2FAEmailAPIView(APIView):
+    def post(self, request, *args, **kwargs):
+        email = request.data.get('email')
+        two_fa_code = request.data.get('twoFACode', None)  # This might be None for sending code
+
+        if not email:
+            return JsonResponse({"error": "Email address is required."}, status=400)
+
+        # Check if this is a verification attempt (twoFACode is provided)
+        if two_fa_code:
+            # Attempt to verify the 2FA code
+            expected_code = cache.get(f"2fa_code_{email}")
+            if two_fa_code == expected_code:
+                cache.delete(f"2fa_code_{email}")  # Clear the code after successful verification
+                # Proceed with registration or next steps here
+                return JsonResponse({"message": "2FA code verified successfully."})
+            else:
+                return JsonResponse({"error": "Invalid or expired 2FA code."}, status=400)
+
+        # For sending the 2FA code
+        two_fa_code = get_random_string(length=6, allowed_chars='1234567890')
+        cache.set(f"2fa_code_{email}", two_fa_code, timeout=300)  # 5 minutes expiry
+
+        subject = 'Your 2FA Verification Code'
+        message = f'Your verification code is: {two_fa_code}'
+        from_email = settings.EMAIL_HOST_USER
+        recipient_list = [email]
+
+        send_mail(subject, message, from_email, recipient_list)
+        return JsonResponse({"message": "2FA code sent successfully."})

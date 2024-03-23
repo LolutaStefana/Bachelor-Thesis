@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Typography, LinearProgress, IconButton } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { Snackbar, SnackbarContent } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import TwoFAInput from '../../components/TwoFAComponent/TwoFAInput';
 import '../RegisterPage/register.css';
 
 interface TherrapistData {
@@ -18,8 +21,15 @@ interface TherrapistData {
   years_of_experience: string;
 }
 
+
 const RegisterTherapist = () => {
     const [stepIndex, setStepIndex] = useState(0);
+    const [is2FASent, setIs2FASent] = useState(false);
+    const [twoFACode, setTwoFACode] = useState('');
+    const [is2FAVerified, setIs2FAVerified] = useState(false);
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+const [snackbarMessage, setSnackbarMessage] = useState('');
+
     const [userData, setUserData] = useState<TherapistFormData>({
     name: '',
     email: '',
@@ -38,7 +48,7 @@ const RegisterTherapist = () => {
     const navigate = useNavigate();
 
     const fieldsOrder = [
-        'name', 'country', 'city', 'gender', 'date_of_birth', 'description','domain_of_interest','years_of_experience', 'credentials'
+        'name', 'country', 'city', 'gender', 'date_of_birth', 'description','domain_of_interest','years_of_experience', 'credentials', 'twoFA'
     ];
 
     const validateField = (name: string, value: string) => {
@@ -79,6 +89,14 @@ const RegisterTherapist = () => {
             setStepIndex(stepIndex + 1);
         }
     };
+    const openSnackbar = (message: string) => {
+        setSnackbarMessage(message);
+        setSnackbarOpen(true);
+    };
+    
+    const closeSnackbar = () => {
+        setSnackbarOpen(false);
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -93,22 +111,54 @@ const RegisterTherapist = () => {
             console.error('Some fields are invalid.');
             return;
         }
-        const { confirm_password, ...dataToSubmit } = userData;
-        const formData = {
-                      ...userData,
-                      is_therapist: true 
-                    };
-        const response = await fetch('http://localhost:8000/api/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData),
-        });
+      if (is2FASent && !is2FAVerified) {
+            // Verify the 2FA code
+            const verificationResponse = await fetch('http://localhost:8000/api/send-2fa-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: userData.email, twoFACode }),
+            });
+
+            if (verificationResponse.ok) {
+                setIs2FAVerified(true);
+                const { confirm_password, ...dataToSubmit } = userData;
+                const formData = {
+                              ...dataToSubmit,
+                              is_therapist: true 
+                            };
+                const response = await fetch('http://localhost:8000/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData),
+                });
 
 
-        if (response.ok) {
-            navigate('/login');
-        } else {
-            console.error('Registration failed');
+                if (response.ok) {
+                    navigate('/login');
+                } else {
+                    console.error('Registration failed');
+                }
+
+            } else {
+                console.error('2FA verification failed');
+                openSnackbar('Incorrect 2FA code. Please try again.');
+            }
+        } else if (!is2FASent) {
+            // Send the 2FA code
+            const send2FAResponse = await fetch('http://localhost:8000/api/send-2fa-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: userData.email }),
+            });
+
+            if (send2FAResponse.ok) {
+                setIs2FASent(true);
+                handleNext();
+                // Notify the user to check their email for the 2FA code
+            } else {
+                console.error('Failed to send 2FA code');
+                // Handle error
+            }
         }
     };
     const progress = (stepIndex / fieldsOrder.length) * 100;
@@ -199,6 +249,13 @@ const RegisterTherapist = () => {
                 );
             default:
                 break;
+                case 'twoFA':
+                return (
+                    <>
+                        <Typography variant="h6" className='set-accoutn-text' gutterBottom>Enter the code sent to your email</Typography>
+                        <TwoFAInput value={twoFACode} onChange={setTwoFACode} />
+                    </>
+                );
         }
         return (
             <>
@@ -246,11 +303,11 @@ const RegisterTherapist = () => {
                             onClick={handleNext}
                             aria-label="next"
                             disabled={
-                                stepIndex >= fieldsOrder.length - 1 ||
+                                stepIndex >= fieldsOrder.length - 2 ||
                                 userData[fieldsOrder[stepIndex] as keyof TherapistFormData] === ''
                             }
                             className={
-                                stepIndex >= fieldsOrder.length - 1 ||
+                                stepIndex >= fieldsOrder.length - 2 ||
                                     userData[fieldsOrder[stepIndex] as keyof TherapistFormData] === ''
                                     ? 'disabled-icon'
                                     : ''
@@ -259,13 +316,33 @@ const RegisterTherapist = () => {
                             <ArrowForwardIosIcon />
                         </IconButton>
                     </div>
-                    {stepIndex >= fieldsOrder.length - 1 ? (
+                    {stepIndex >= fieldsOrder.length - 2 ? (
                         <Button variant="contained" className='gradient' type="submit" fullWidth>
                             Register
                         </Button>
                     ) : null}
                 </form>
             </div>
+            <Snackbar
+    anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'right',
+    }}
+    open={snackbarOpen}
+    autoHideDuration={3000} // Adjust as needed
+    onClose={closeSnackbar}
+>
+   
+
+    <SnackbarContent
+        message={snackbarMessage}
+        action={
+            <IconButton size="small" aria-label="close" color="inherit" onClick={closeSnackbar}>
+                <CloseIcon fontSize="small" />
+            </IconButton>
+        }
+    />
+</Snackbar>
         </div>
     );
 };

@@ -1,0 +1,73 @@
+.get-help-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .get-help-page * {
+    color: rgb(85, 89, 101);
+    font-family: Arial, sans-serif !important; 
+}
+  
+  .page-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .container-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 800px; /* Adjust as needed */
+    margin-top: 20px; /* Add some space between header and containers */
+  }
+  
+
+  .country-info-container {
+    flex: 2;
+  }
+  .country-list-container {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+  
+    top: 60px; 
+    height: 100vh; /* This will define the height of the container */
+    overflow-y: auto; /* Enables scrolling */
+  }
+  
+  
+  .country-info {
+    background-color: #f0f0f038;
+    padding: 20px;
+    margin-left: 100px;
+    border-radius: 20px;
+    
+  }
+  .country-list{
+    padding: 20px;
+    border-radius: 20px;
+
+  }
+  
+  .country-list h2,
+  .country-info h2 {
+    margin-top: 0;
+  }
+  
+  .country-list ul,
+  .country-info ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .country-list ul li,
+  .country-info ul li {
+    margin-bottom: 10px;
+  }
+  
+  .country-info a {
+    color: rgb(132,152,228);
+  }
+  .country-list a {
+    color: rgb(132,152,228);
+  }

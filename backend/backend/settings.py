@@ -130,3 +130,10 @@ AUTH_USER_MODEL='users.User'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mailersend.net'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'MS_vJzAgf@trial-351ndgwqvyxgzqx8.mlsender.net'
+EMAIL_HOST_PASSWORD = 'KuA9ARP9SarmbwUZ'
