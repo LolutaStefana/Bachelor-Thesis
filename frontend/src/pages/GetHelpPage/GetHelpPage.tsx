@@ -9,7 +9,7 @@ const GetHelpPage: React.FC = () => {
             const hash = target.hash;
             const element = document.querySelector(hash);
             if (element) {
-                const offset = 100; // Adjust this value to fit your layout
+                const offset = 100; 
                 const top = element.getBoundingClientRect().top + window.pageYOffset - offset;
                 window.scrollTo({ top, behavior: 'smooth' });
                 event.preventDefault();

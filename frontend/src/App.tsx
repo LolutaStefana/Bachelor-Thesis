@@ -9,28 +9,31 @@ import HomePage from './pages/Homepage/HomePage';
 import RegisterTherapist from './pages/RegisterTherapistPage/RegisterTherapist';
 import Footer from './components/Footer/Footer';
 import GetHelpPage from './pages/GetHelpPage/GetHelpPage';
+import ListTherapists from './components/ListTherapistsComponent/ListTherapists';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
-    const [name, setName] = useState('');
-
     return (
         <div className="App">
             <BrowserRouter>
-                <Nav name={name} setName={setName} />
+            <AuthProvider>
+                <Nav />
                 <main>
                     <Routes>
                         <Route path="/" element={<StartPage />} />
                         <Route path="/homepage" element={<HomePage/>} />
-                        <Route path="/login" element={<Login setName={setName} />} />
+                        <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/register-therapist" element={<RegisterTherapist />} />
                         <Route path="/gethelp" element={<GetHelpPage />} />
+                        <Route path="/list-therapists" element={<ListTherapists />} />
                         
                     </Routes>
                 </main>
-           
+                <Footer /> 
+                </AuthProvider>
             </BrowserRouter>
-            <Footer /> 
+            
         </div>
     );
 }

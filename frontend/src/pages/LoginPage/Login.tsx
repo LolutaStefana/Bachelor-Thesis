@@ -7,8 +7,10 @@ import IconButton from '@mui/material/IconButton';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import * as psihoSvg from '../../psiho.svg';
 import './login.css';
+import { useAuth } from '../../context/AuthContext';
 
-const Login = (props: { setName: (name: string) => void }) => {
+const Login = () => {
+    const { setName } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false); 
@@ -34,7 +36,7 @@ const Login = (props: { setName: (name: string) => void }) => {
         console.log('Login content:', content);
 
         if (response.ok) {
-            props.setName(content.name);
+            setName(content.name); 
             navigate('/homepage');
         } else {
             setOpenSnackbar(true);

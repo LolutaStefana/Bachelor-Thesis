@@ -17,8 +17,8 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    max-width: 800px; /* Adjust as needed */
-    margin-top: 20px; /* Add some space between header and containers */
+    max-width: 800px; 
+    margin-top: 20px; 
   }
   
 
@@ -26,12 +26,12 @@
     flex: 2;
   }
   .country-list-container {
-    position: -webkit-sticky; /* For Safari */
+    position: -webkit-sticky; 
     position: sticky;
   
     top: 60px; 
-    height: 100vh; /* This will define the height of the container */
-    overflow-y: auto; /* Enables scrolling */
+    height: 100vh; 
+    overflow-y: auto; 
   }
   
   
