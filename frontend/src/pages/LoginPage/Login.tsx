@@ -10,7 +10,7 @@ import './login.css';
 import { useAuth } from '../../context/AuthContext';
 
 const Login = () => {
-    const { setName } = useAuth();
+    const { setName, refreshUserData } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false); 
@@ -37,6 +37,7 @@ const Login = () => {
 
         if (response.ok) {
             setName(content.name); 
+            refreshUserData();
             navigate('/homepage');
         } else {
             setOpenSnackbar(true);

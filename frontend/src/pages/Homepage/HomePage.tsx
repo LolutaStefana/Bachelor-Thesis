@@ -1,45 +1,62 @@
 import React from 'react';
-import { useAuth } from '../../context/AuthContext'; // Adjust the path as needed
-import CircularProgress from '@mui/material/CircularProgress'; // For the loading indicator
+import { useAuth } from '../../context/AuthContext';
+import { CircularProgress, Typography, Grid, Box, Container } from '@mui/material';
+import { Link } from 'react-router-dom';
+import WelcomeBanner from '../../components/WelcomeBanner/WelcomeBanner';
+import FindTherapistCard from '../../components/FindTherapistCard/FindTherapistCard';
+import ChatBotCard from '../../components/ChatBotCard/ChatBotCard';
+import TestMatchTherapistCard from '../../components/TestMatchTherapistCard/TestMatchTherapistCard';
 
 const HomePage = () => {
     const { name, loading } = useAuth();
 
+
     if (loading) {
         return (
-            <div className='loading-container'>
-                <CircularProgress style={{alignContent:'center'}} /> 
-            </div>
+            <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+                <CircularProgress />
+            </Box>
         );
     }
+
     let content;
 
     if (name === '') {
         // The user is not logged in
         content = (
-            <div className='home-message'>
-                <h2>You are not logged in</h2>
-                <p>Please <a href="/login">login</a> to access your homepage.</p>
-            </div>
+            <Container maxWidth="sm" style={{ textAlign: 'center', padding: '2rem' }}>
+                <Typography variant="h4" gutterBottom>
+                    You are not logged in
+                </Typography>
+                <Typography variant="subtitle1" gutterBottom>
+                    Please <Link to="/login" style={{ textDecoration: 'none' }}>login</Link> to access your homepage.
+                </Typography>
+            </Container>
         );
     } else {
         // The user is logged in
         content = (
-            <div className='home-welcome'>
-                <h2>Hi {name}</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sed laoreet libero. Curabitur orci turpis, euismod quis efficitur vel, tempor vel nunc. Quisque cursus quis metus id venenatis. Fusce eros dui, finibus ut lorem at, ultrices blandit sapien. Suspendisse id tortor consequat, finibus lorem id, malesuada dui. Cras convallis ex a magna bibendum dapibus. Ut vel arcu sit amet augue feugiat luctus. Phasellus in velit ac nulla pretium placerat. Phasellus et sodales leo. Integer pulvinar mauris vel purus semper viverra. Fusce luctus eget ligula fringilla consectetur. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut euismod, velit et molestie ullamcorper, nulla dolor lobortis nisl, ullamcorper posuere libero est sit amet nunc. Donec varius scelerisque tellus sed fermentum. Proin elementum id nulla quis facilisis.
-
-Vestibulum nibh urna, tincidunt in massa iaculis, ornare hendrerit mauris. Etiam at blandit risus, ac tincidunt eros. Cras egestas nisl eget velit euismod aliquet. Aliquam erat volutpat. Vivamus volutpat sapien in ipsum tempus efficitur. In vitae ligula hendrerit, ultricies odio sed, pulvinar ipsum. Sed congue efficitur tempor. In fringilla pharetra malesuada.
-
-Nam vel euismod ante. Duis maximus arcu gravida, malesuada nunc non, rutrum purus. Vivamus dapibus diam nisi, a rhoncus sapien condimentum in. Sed cursus cursus consectetur. Nullam varius velit vitae dolor rutrum maximus. Sed id est nec nunc aliquam ultrices. Quisque consequat arcu vitae nulla interdum, et sodales lorem elementum. Nulla lobortis purus ut elit vulputate, eget porttitor velit commodo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur aliquet gravida neque non porttitor. Aliquam congue velit cursus, pellentesque erat vel, tristique risus. Nunc tincidunt eros cursus lacinia porttitor. Quisque ut dignissim lectus, eget aliquet arcu. Mauris risus sapien, lobortis at turpis ac, rutrum iaculis ante. Pellentesque euismod accumsan tincidunt. Integer vestibulum, nibh at luctus feugiat, ipsum nibh egestas sapien, id imperdiet nisl metus in velit.</p>
-            </div>
+            <Container maxWidth="lg">
+                <WelcomeBanner name={name} />
+                <Grid container spacing={5} style={{ marginTop: '20px' }}>
+                    <Grid item xs={12} sm={6} md={4}>
+                        <FindTherapistCard />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={4}>
+                        <ChatBotCard />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={4}>
+                        <TestMatchTherapistCard />
+                    </Grid>
+                </Grid>
+            </Container>
         );
     }
 
     return (
-        <div className='home-container'>
+        <Box className='home-container' sx={{ flexGrow: 1 }}>
             {content}
-        </div>
+        </Box>
     );
 };
 

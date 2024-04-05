@@ -17,7 +17,7 @@ class User(AbstractUser):
     domain_of_interest = models.CharField(max_length=255, null=True, blank=True)
     years_of_experience = models.IntegerField(null=True, blank=True)
     is_verified = models.BooleanField(default=False)
-    # profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

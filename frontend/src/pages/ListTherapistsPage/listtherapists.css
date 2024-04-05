@@ -1,0 +1,60 @@
+
+.therapist-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+.filter-options {
+  display: flex; 
+  justify-content: center; 
+  gap: 10px; 
+  margin-bottom: 20px; 
+  align-items: center; 
+  padding: 10px;
+}
+
+.filter-options label {
+  display: flex;
+  align-items: center;
+  cursor: pointer; 
+}
+
+
+
+
+.search-input {
+ 
+  padding: 8px;
+  border: 1px solid #ccc; 
+  background-color:rgb(85,89,101,0.1);
+  border-radius: 4px; 
+  font-size: 1rem; 
+  line-height: 1.5;
+}
+.years-of-experience-slider {
+  margin-top: 10px;
+}
+
+.slider-input {
+  width: 100%; 
+  background-color:rgb(85,89,101,0.1);
+  margin: 8px 0; 
+}
+
+.filter-select {
+  padding: 8px;
+  background-color: rgb(85,89,101,0.1);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-right: 10px; 
+}
+.no-therapists {
+  font-size: 1.2rem;
+  color:rgb(85,89,101);
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+}

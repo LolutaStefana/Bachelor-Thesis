@@ -1,0 +1,80 @@
+.therapist-card {
+    border: 1px solid rgb(85,89,101,0.1);
+    border-radius: 8px;
+    width: 400px;
+    padding: 20px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgb(239,233,244,0.4);
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
+  }
+  
+  .profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    object-fit: cover;
+    display: block; 
+  margin: 0 auto; 
+  }
+  
+  .therapist-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+  }
+  
+  .therapist-info h2 {
+    margin: 10px 0;
+    font-size: 1.5em;
+  }
+  
+  .therapist-info p {
+    font-size: 0.9em;
+    color: #666;
+    margin: 5px 0;
+  }
+  
+  .connect-button {
+    border: none;
+    background: rgba(21, 21, 23, 0.5);
+  
+  background: -webkit-linear-gradient(to right, rgba(1, 1, 1, 0.507), rgba(191, 149, 239, 0.53));
+
+  background: linear-gradient(to right, rgba(1, 1, 1, 0.507), rgba(191, 149, 239, 0.53));
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+  }
+  .therapist-name {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+  }
+  
+  .therapist-interest span, .therapist-experience span {
+    font-weight: bold !important;
+  }
+  
+  .therapist-experience {
+    color: rgb(105,129,216) !important;
+    margin-bottom: 0.5em !important;
+  }
+  
+  .therapist-contact p {
+    font-size: 0.9em;
+    color: #666;
+    margin: 2px 0;
+    text-align: center;
+  }
+  
+ 

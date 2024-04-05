@@ -15,8 +15,8 @@
     max-width: 600px;
     margin: 40px auto;
     padding: 40px;
-    opacity: 0; /* Set initial opacity to 0 */
-    transition: opacity 0.5s ease; /* Apply transition to opacity */
+    opacity: 0; 
+    transition: opacity 0.5s ease; 
 }
 .content-faq-title {
     text-align: center;
@@ -28,7 +28,7 @@
     color: rgb(85,89,101);
     margin-bottom: 10px !important;
 }
-/* Add a class to show the FAQ section */
+
 .show {
     opacity: 1;
 }
@@ -40,10 +40,8 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 200px; /* Adjust height to control the transition area */
+    height: 200px; 
     background-image: linear-gradient(rgba(255, 255, 255, 0), rgb(239,233,244, 0.8));
-    
-    /* background-image: linear-gradient(rgba(255, 255, 255, 0), rgb(155,174,242, 1)); */
   }
 
 

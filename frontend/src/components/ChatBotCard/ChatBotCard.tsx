@@ -1,0 +1,48 @@
+
+import React from 'react';
+import { Card, CardActionArea, CardContent, Typography, CardMedia, Box } from '@mui/material';
+import ChatIcon from '../../chatbot.png'
+
+const ChatBotCard = () => {
+    return (
+        <Card  sx={{ Width: 345, backgroundColor: 'rgb(239,233,244)', "&:hover": { backgroundColor: 'rgba(255, 255, 255, 0.9)', } }}>
+            <CardActionArea>
+            <CardMedia
+                    component="img"
+                    height="140"
+                    image={ChatIcon }// Replace with your image path
+                    alt="Find a Therapist"
+                />
+                <CardContent >
+                    <Typography gutterBottom variant="h5" component="div">
+                        Talk to PeaceBot
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                        Our friendly bot is ready to help you 24/7 with your questions and guide you through our services.
+                    </Typography>
+                </CardContent>
+                <Box sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: 'transparent',
+                    color: 'transparent',
+                    transition: 'background-color 0.3s, color 0.3s',
+                    "&:hover": {
+                        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                        color: 'primary.main',
+                    },
+                }}>
+                   
+                </Box>
+            </CardActionArea>
+        </Card>
+    );
+};
+
+export default ChatBotCard;

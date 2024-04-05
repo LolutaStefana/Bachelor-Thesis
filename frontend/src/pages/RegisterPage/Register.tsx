@@ -17,6 +17,7 @@ interface UserData {
     gender: string;
     date_of_birth: string;
     description: string;
+    profilePicture: string;
 }
 
 
@@ -38,6 +39,7 @@ const Register = () => {
         date_of_birth: '',
         description: '',
         confirm_password: '',
+        profilePicture: 'http://localhost:8000/media/profile_pictures/blank.jpg',
     });
     const [errors, setErrors] = useState<Partial<UserFormData>>({});
 
@@ -116,6 +118,8 @@ const Register = () => {
             });
 
             if (verificationResponse.ok) {
+                //set the profile picure as default profile picture
+               
                 setIs2FAVerified(true);
                 const { confirm_password, ...dataToSubmit } = userData;
                 const response = await fetch('http://localhost:8000/api/register', {
@@ -126,7 +130,16 @@ const Register = () => {
 
 
                 if (response.ok) {
-                    navigate('/login');
+                    
+        // Clear the form/page data if necessary
+        // For example, you could reset user data or navigate immediately
+        // setUserData({ ...initialUserDataState });
+
+        // Wait 3 seconds before navigating to the login page
+        setTimeout(() => {
+            navigate('/login');
+        }, 3000);
+                  
                 } else {
                     console.error('Registration failed');
                 }

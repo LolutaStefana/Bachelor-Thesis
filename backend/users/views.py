@@ -1,6 +1,8 @@
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
-from .serializers import UserSerializer
+from .serializers import UserSerializer, UserProfileUpdateSerializer
+from rest_framework import permissions, status
 from .models import User
 from rest_framework.generics import ListAPIView
 from django.conf import settings
@@ -155,3 +157,33 @@ class Send2FAEmailAPIView(APIView):
 
         send_mail(subject, message, from_email, recipient_list)
         return JsonResponse({"message": "2FA code sent successfully."})
+class UserProfileUpdateView(APIView):
+    def put(self, request, *args, **kwargs):
+        # Extract the JWT token from the request cookies (or headers, depending on your setup)
+        token = request.COOKIES.get('jwt')  # Or request.headers.get('Authorization')
+        if not token:
+            return JsonResponse({'error': 'Authentication credentials were not provided.'}, status=401)
+
+        # Verify the JWT token and get the user
+        try:
+            user = verify_jwt_token(token)
+        except jwt.ExpiredSignatureError:
+            return JsonResponse({'error': 'Token expired.'}, status=401)
+        except jwt.DecodeError:
+            return JsonResponse({'error': 'Error decoding token.'}, status=401)
+        except AuthenticationFailed as e:
+            return JsonResponse({'error': str(e)}, status=401)
+
+        # Proceed with updating the user profile
+        serializer = UserProfileUpdateSerializer(user, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            user_instance = serializer.save()
+
+            if 'profile_picture' in request.FILES:
+                user_instance.profile_picture = request.FILES['profile_picture']
+                user_instance.save()
+
+            updated_serializer = UserProfileUpdateSerializer(user_instance)
+            return Response(updated_serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

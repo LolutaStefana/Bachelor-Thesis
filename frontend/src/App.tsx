@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import Nav from './components/NavBar/Nav';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -9,8 +9,10 @@ import HomePage from './pages/Homepage/HomePage';
 import RegisterTherapist from './pages/RegisterTherapistPage/RegisterTherapist';
 import Footer from './components/Footer/Footer';
 import GetHelpPage from './pages/GetHelpPage/GetHelpPage';
-import ListTherapists from './components/ListTherapistsComponent/ListTherapists';
+import ListTherapists from './pages/ListTherapistsPage/ListTherapists';
 import { AuthProvider } from './context/AuthContext';
+import ProfileEditPage from './pages/ProfileEditPage/ProfileEditPage';
+import ProfileViewPage from './pages/ProfileViewPage/ProfileViewPage';
 
 function App() {
     return (
@@ -27,6 +29,8 @@ function App() {
                         <Route path="/register-therapist" element={<RegisterTherapist />} />
                         <Route path="/gethelp" element={<GetHelpPage />} />
                         <Route path="/list-therapists" element={<ListTherapists />} />
+                        <Route path="/view-profile" element={<ProfileViewPage />} />
+                        <Route path="/edit-profile" element={<ProfileEditPage />} />
                         
                     </Routes>
                 </main>
