@@ -22,6 +22,7 @@ const ListTherapists: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCity, setFilterCity] = useState('');
   const [filterCountry, setFilterCountry] = useState('');
+  const [filterDomain, setFilterDomain] = useState('');
   const [minYearsOfExperience, setMinYearsOfExperience] = useState(0);
   const [activeFilter, setActiveFilter] = useState('');
 
@@ -68,6 +69,9 @@ const ListTherapists: React.FC = () => {
   const handleCountryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilterCountry(e.target.value);
   };
+  const handleDomainChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFilterDomain(e.target.value);
+  };
 
   const handleYearsOfExperienceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMinYearsOfExperience(Number(e.target.value));
@@ -84,6 +88,7 @@ const ListTherapists: React.FC = () => {
       therapist.name.toLowerCase().startsWith(searchTerm.toLowerCase()) &&
       (filterCity === '' || therapist.city?.toLowerCase().startsWith(filterCity.toLowerCase())) &&
       (filterCountry === '' || therapist.country?.toLowerCase().startsWith(filterCountry.toLowerCase())) &&
+      (filterDomain === '' || therapist.domain_of_interest?.toLowerCase().startsWith(filterDomain.toLowerCase())) &&
       (therapist.years_of_experience !== undefined && therapist.years_of_experience >= minYearsOfExperience)
     );
   });
@@ -99,6 +104,7 @@ const ListTherapists: React.FC = () => {
           <option value="name">Name</option>
           <option value="city">City</option>
           <option value="country">Country</option>
+          <option value="domain">Domain of interest</option>
           <option value="experience">Years of Experience</option>
         </select>
        
@@ -129,6 +135,16 @@ const ListTherapists: React.FC = () => {
             placeholder="Search by country..."
             value={filterCountry}
             onChange={handleCountryChange}
+            className="search-input"
+          />
+        )}
+        {activeFilter === 'domain' && (
+          <input
+            style={{width: '300px'}}
+            type="text"
+            placeholder="Search by domain of interest..."
+            value={filterDomain}
+            onChange={handleDomainChange}
             className="search-input"
           />
         )}

@@ -1,6 +1,6 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.exceptions import AuthenticationFailed, NotFound
 from .serializers import UserSerializer, UserProfileUpdateSerializer
 from rest_framework import permissions, status
 from .models import User
@@ -187,3 +187,10 @@ class UserProfileUpdateView(APIView):
             updated_serializer = UserProfileUpdateSerializer(user_instance)
             return Response(updated_serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class TherapistDetailView(APIView):
+    def get(self, request, pk):
+        therapist = User.objects.filter(id=pk, is_therapist=True).first()
+        if therapist is None:
+            raise NotFound('Therapist not found!')
+        serializer = UserSerializer(therapist)
+        return Response(serializer.data)

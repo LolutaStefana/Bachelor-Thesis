@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import RegisterView, LoginView, UserView, LogoutView, NormalUserListView, TherapistListView, \
-    Send2FAEmailAPIView, UserProfileUpdateView
+    Send2FAEmailAPIView, UserProfileUpdateView, TherapistDetailView
 
 urlpatterns = [
     path('register', RegisterView.as_view()) ,
@@ -11,4 +11,5 @@ urlpatterns = [
     path('users/therapists', TherapistListView.as_view()),
     path('send-2fa-email', Send2FAEmailAPIView.as_view()),
     path('user/profile/update', UserProfileUpdateView.as_view()),
+    path('therapists/<int:pk>', TherapistDetailView.as_view()),
 ]

@@ -4,7 +4,9 @@ import TestIcon from '../../test.jpg';
 
 const TestMatchTherapistCard = () => {
     return (
-        <Card sx={{ Width: 345, backgroundColor: 'rgb(239,233,244)', "&:hover": { backgroundColor: 'rgba(255, 255, 255, 0.9)', } }}>
+        <Card  sx={{ Width: 345, backgroundColor: 'rgb(239,233,244)',border: '1px solid rgb(85,89,101,0.1) transparent',
+        transition:' transform 0.3s ease' , "&:hover": { transform: 'scale(1.1)',
+        borderColor: '#ddd',boxShadow:' 0 4px 8px rgba(0, 0, 0, 0.1)'  } }}>
             <CardActionArea>
                 <CardMedia
                     component="img"
@@ -33,7 +35,7 @@ const TestMatchTherapistCard = () => {
                     opacity: 0,
                     transition: 'opacity 0.5s ease-in-out, backgroundColor 0.5s ease-in-out',
                     "&:hover": {
-                        backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.2)',
                         opacity: 1,
                     },
                 }}>

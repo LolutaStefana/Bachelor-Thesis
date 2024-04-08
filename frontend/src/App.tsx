@@ -13,6 +13,7 @@ import ListTherapists from './pages/ListTherapistsPage/ListTherapists';
 import { AuthProvider } from './context/AuthContext';
 import ProfileEditPage from './pages/ProfileEditPage/ProfileEditPage';
 import ProfileViewPage from './pages/ProfileViewPage/ProfileViewPage';
+import TherapistProfileDetailsPage from './pages/TherapistProfileDetailsPage/TherapistProfileDetailsPage';
 
 function App() {
     return (
@@ -31,6 +32,7 @@ function App() {
                         <Route path="/list-therapists" element={<ListTherapists />} />
                         <Route path="/view-profile" element={<ProfileViewPage />} />
                         <Route path="/edit-profile" element={<ProfileEditPage />} />
+                        <Route path="/therapists/:id" element={<TherapistProfileDetailsPage/>} />
                         
                     </Routes>
                 </main>

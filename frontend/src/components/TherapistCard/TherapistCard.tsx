@@ -2,6 +2,7 @@ import React from 'react';
 import './therapistcard.css';
 import { Tooltip } from '@mui/material';
 import VerifiedIcon from '@mui/icons-material/Verified';
+import { useNavigate } from 'react-router';
 
 interface TherapistCardProps {
     id: number;
@@ -30,8 +31,14 @@ const TherapistCard: React.FC<TherapistCardProps> = ({
     yearsOfExperience,
     isVerified,
 }) => {
+    const navigate=useNavigate();
+    const handleClick = () => {
+        navigate(`/therapists/${id}`);
+    };
+   
+    
     return (
-        <div className="therapist-card" key={id}>
+        <div className="therapist-card" onClick={handleClick} key={id}>
                 <img src={profilePicture} alt={`Profile of ${name}`} className="profile-picture" />
                 <div className="therapist-info">
                    

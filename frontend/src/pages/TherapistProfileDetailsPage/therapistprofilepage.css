@@ -1,0 +1,97 @@
+.therapist-profile-details-page {
+    max-width: 960px;
+    margin: 40px auto;
+    padding: 20px;
+    background: rgb(215,216,244);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    font-family: 'Arial', sans-serif;
+}
+
+.therapist-profile-header-details-page {
+    text-align: center;
+    border-bottom: 1px solid #eeeeee34;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-picture-details-page {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-top: -75px; 
+    border: 4px solid #ffffff73; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.therapist-name-details-page {
+    font-size: 1.5em;
+    color: #333;
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.therapist-profile-details-details-page {
+    padding: 10px 0;
+}
+
+.therapist-profile-details-details-page h2 {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.therapist-profile-details-details-page p {
+    color: #666;
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+.details-flex-container-details-page {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; 
+}
+
+.therapist-description-details-page {
+    max-width: 500px; 
+    margin: 0 auto 20px;
+    padding: 30px;
+    background: #f9f9f92e; 
+    border-radius: 8px;
+    color:rgb(85,89,101);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-wrap: break-word; 
+    word-wrap: break-word;
+    overflow: hidden; 
+}
+
+
+.detail-section-details-page {
+    flex-basis: 48%; 
+    margin-bottom: 20px;
+}
+
+
+
+@media (max-width: 768px) {
+    .therapist-profile-details-page {
+        margin: 20px;
+        padding: 10px;
+    }
+
+    .profile-picture-details-page {
+        width: 120px;
+        height: 120px;
+        margin-top: -60px;
+    }
+    .details-flex-container-details-page {
+        flex-direction: column;
+    }
+
+    .detail-section-details-page {
+        flex-basis: 100%;
+    }
+}
+

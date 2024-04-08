@@ -1,5 +1,6 @@
 .therapist-card {
-    border: 1px solid rgb(85,89,101,0.1);
+    border: 1px solid rgb(85,89,101,0.1) transparent;
+    transition: transform 0.3s ease; 
     border-radius: 8px;
     width: 400px;
     padding: 20px;
@@ -10,6 +11,11 @@
     background: rgb(239,233,244,0.4);
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
   }
+  .therapist-card:hover {
+    transform: scale(1.1); 
+    border-color: #ddd; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
   
   .profile-picture {
     width: 100px;

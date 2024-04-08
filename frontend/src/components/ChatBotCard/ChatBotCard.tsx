@@ -5,7 +5,9 @@ import ChatIcon from '../../chatbot.png'
 
 const ChatBotCard = () => {
     return (
-        <Card  sx={{ Width: 345, backgroundColor: 'rgb(239,233,244)', "&:hover": { backgroundColor: 'rgba(255, 255, 255, 0.9)', } }}>
+        <Card  sx={{ Width: 345, backgroundColor: 'rgb(239,233,244)',border: '1px solid rgb(85,89,101,0.1) transparent',
+        transition:' transform 0.3s ease' , "&:hover": { transform: 'scale(1.1)',
+        borderColor: '#ddd',boxShadow:' 0 4px 8px rgba(0, 0, 0, 0.1)'  } }}>
             <CardActionArea>
             <CardMedia
                     component="img"
@@ -34,7 +36,7 @@ const ChatBotCard = () => {
                     color: 'transparent',
                     transition: 'background-color 0.3s, color 0.3s',
                     "&:hover": {
-                        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.2)',
                         color: 'primary.main',
                     },
                 }}>
