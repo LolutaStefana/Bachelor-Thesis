@@ -65,10 +65,15 @@ const Nav = () => {
             );
         } else {
             menu = (
+                
                 <ul className="navbar-nav me-auto mb-2 mb-md-0">
+                    <li className="nav-item active">
+                <Link to="/chat" className="nav-link">PeaceBot</Link>
+            </li>
                     <li className="nav-item active">
                         <Link to="/list-therapists" className="nav-link">See therapists</Link>
                     </li>
+                   
                     <li className="nav-item dropdown active">
                         <button
                             className="nav-link dropdown-toggle"

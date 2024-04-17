@@ -1,5 +1,8 @@
 from rest_framework import serializers
-from .models import User
+from .models import User, Appointment
+from django.utils import timezone
+
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,3 +32,18 @@ class UserProfileUpdateSerializer(serializers.ModelSerializer):
             'profile_picture': {'required': False},
             'date_of_birth': {'format': '%Y-%m-%d'},
         }
+class AppointmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Appointment
+        fields = ['id', 'user', 'therapist', 'status', 'scheduled_time', 'created_at', 'updated_at']
+
+
+    def validate_scheduled_time(self, value):
+        if value < timezone.now():
+            raise serializers.ValidationError("Cannot schedule an appointment in the past.")
+        return value
+
+    def validate(self, data):
+        if data['user'] == data['therapist']:
+            raise serializers.ValidationError("Cannot schedule an appointment with oneself.")
+        return data

@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from backend import settings
+
+
 class User(AbstractUser):
     name = models.CharField(max_length=255)
     email = models.CharField(max_length=255, unique=True)
@@ -28,3 +31,20 @@ class User(AbstractUser):
             self.years_of_experience = None
             self.is_verified = False
         super(User, self).save(*args, **kwargs)
+
+class Appointment(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('accepted', 'Accepted'),
+        ('canceled', 'Canceled'),
+    ]
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='appointments')
+    therapist = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='therapist_appointments')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
+    scheduled_time = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Appointment between {self.user.name} and {self.therapist.name} on {self.scheduled_time}"

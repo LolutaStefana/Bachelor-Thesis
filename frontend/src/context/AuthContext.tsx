@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface AuthContextType {
+    userId: number | null;
+    setUserId: (id: number | null) => void;
     name: string;
     setName: (name: string) => void;
     loading: boolean;
@@ -12,6 +14,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
+    const [userId, setUserId] = useState<number | null>(null);
     const [name, setName] = useState('');
     const [loading, setLoading] = useState(true);
     const [photoUrl, setPhotoUrl] = useState<string | null>(null); // Initialize photoUrl state
@@ -29,23 +32,28 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             });
             if (response.ok) {
                 const content = await response.json();
+                setUserId(content.id);
                 setName(content.name);
                 const fullPhotoUrl = content.profile_picture ? `http://localhost:8000${content.profile_picture}` : `http://localhost:8000/media/profile_pictures/blank.jpg`;
                 setPhotoUrl(fullPhotoUrl);
             } else {
                 setName('');
                 setPhotoUrl(null);
+                setUserId(null);
             }
         } catch (error) {
             console.error('Error:', error);
             setName('');
             setPhotoUrl(null);
+            setUserId(null);
         } finally {
             setLoading(false);
         }
     };
 
     const contextValue: AuthContextType = {
+        userId,
+        setUserId,
         name,
         setName,
         loading,

@@ -107,6 +107,7 @@ const ListTherapists: React.FC = () => {
           <option value="domain">Domain of interest</option>
           <option value="experience">Years of Experience</option>
         </select>
+        
        
 
         {activeFilter === 'name' && (
@@ -164,6 +165,7 @@ const ListTherapists: React.FC = () => {
           </div>
         )}
       </div>
+      
     <div className="therapist-list">
     {filteredTherapists.length > 0 ? (
         filteredTherapists.map(therapist => (

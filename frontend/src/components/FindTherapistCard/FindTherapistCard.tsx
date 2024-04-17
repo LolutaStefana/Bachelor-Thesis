@@ -12,7 +12,8 @@ const FindTherapistCard = () => {
                 <CardMedia
                     component="img"
                     height="140"
-                    image={TherapistImage} // Replace with your image path
+                    image={TherapistImage}
+                     loading="lazy"
                     alt="Find a Therapist"
                 />
                 <CardContent>

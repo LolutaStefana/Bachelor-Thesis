@@ -14,6 +14,7 @@ import { AuthProvider } from './context/AuthContext';
 import ProfileEditPage from './pages/ProfileEditPage/ProfileEditPage';
 import ProfileViewPage from './pages/ProfileViewPage/ProfileViewPage';
 import TherapistProfileDetailsPage from './pages/TherapistProfileDetailsPage/TherapistProfileDetailsPage';
+import ChatBotPage from './pages/ChatBotPage/ChatBotPage';
 
 function App() {
     return (
@@ -33,6 +34,7 @@ function App() {
                         <Route path="/view-profile" element={<ProfileViewPage />} />
                         <Route path="/edit-profile" element={<ProfileEditPage />} />
                         <Route path="/therapists/:id" element={<TherapistProfileDetailsPage/>} />
+                        <Route path="/chat" element={<ChatBotPage />} />
                         
                     </Routes>
                 </main>

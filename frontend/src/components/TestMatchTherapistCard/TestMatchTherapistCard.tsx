@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardActionArea, CardContent, Typography, CardMedia, Box } from '@mui/material';
-import TestIcon from '../../test.jpg';
+import TestIcon from '../../test.png';
 
 const TestMatchTherapistCard = () => {
     return (
@@ -12,6 +12,7 @@ const TestMatchTherapistCard = () => {
                     component="img"
                     height="140"
                     image={TestIcon} 
+                     loading="lazy"
                     alt="Match with a Therapist"
                 />
                 <CardContent>

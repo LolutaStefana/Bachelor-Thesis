@@ -1,13 +1,13 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed, NotFound
-from .serializers import UserSerializer, UserProfileUpdateSerializer
-from rest_framework import permissions, status
-from .models import User
+from .serializers import UserSerializer, UserProfileUpdateSerializer, AppointmentSerializer
+from rest_framework import permissions, status, generics
+from .models import User, Appointment
 from rest_framework.generics import ListAPIView
 from django.conf import settings
 from django.core.mail import send_mail
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from rest_framework.views import APIView
 from django.utils.crypto import get_random_string
 from django.core.cache import cache
@@ -194,3 +194,29 @@ class TherapistDetailView(APIView):
             raise NotFound('Therapist not found!')
         serializer = UserSerializer(therapist)
         return Response(serializer.data)
+
+
+class CreateAppointmentView(APIView):
+    def post(self, request):
+        serializer = AppointmentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class AppointmentListView(APIView):
+    def get(self, request):
+        appointments = Appointment.objects.filter(user=request.data.get('user'))
+        serializer = AppointmentSerializer(appointments, many=True)
+        return Response(serializer.data)
+
+class UpdateAppointmentStatusView(APIView):
+    def patch(self, request, pk):
+        appointment = Appointment.objects.get(pk=pk)
+        if appointment.user.id != int(request.data.get('user')):
+            return Response({'error': 'Permission denied'}, status=status.HTTP_403_FORBIDDEN)
+        serializer = AppointmentSerializer(appointment, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

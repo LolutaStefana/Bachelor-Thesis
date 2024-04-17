@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './therapistprofilepage.css';
-import { Box, CircularProgress, IconButton, Tooltip } from '@mui/material';
+import Modal from '../../components/Modal/Modal';
+import scheduleIcon from '../../schedulle.png';
+import { useAuth } from '../../context/AuthContext';
+import { Box, Button, CircularProgress, IconButton, Snackbar, SnackbarContent, Tooltip } from '@mui/material';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import ErrorIcon from '@mui/icons-material/Error';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 
@@ -21,7 +26,12 @@ type Therapist = {
 
 const TherapistProfileDetailsPage = () => {
     const { id } = useParams<{ id: string }>();
+    const { userId } = useAuth();
     const [therapist, setTherapist] = useState<Therapist | null>(null);
+    const [isModalOpen, setModalOpen] = useState(false);
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
+    const [scheduledTime, setScheduledTime] = useState('');
     const navigate=useNavigate();
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -55,9 +65,68 @@ const TherapistProfileDetailsPage = () => {
             </Box>
         );
     }
+    const handleScheduleAppointment = async () => {
+        if (!userId) {
+            alert('You must be logged in to schedule an appointment.');
+            return;
+        }
+    
+        try {
+            const body = {
+                user: userId,
+                therapist: parseInt(id ?? ''),
+                scheduled_time: scheduledTime
+            };
+            const response = await fetch('http://localhost:8000/api/appointments/create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+            if (response.ok) {
+                setModalOpen(false); // Close the modal on success
+                setOpenSnackbar(true);
+            } else {
+                throw new Error('Failed to schedule appointment');
+            }
+        } catch (error) {
+            console.error('Error scheduling appointment:', error);
+            setOpenErrorSnackbar(true);
+        }
+    };
+    const handleCloseSnackbar = () => {
+        setOpenSnackbar(false);
+    };
+    const handleCloseErrorSnackbar = () => {
+        setOpenErrorSnackbar(false);
+    };
 
     return (
         <div className="therapist-profile-details-page">
+            <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
+  <div className="modal-body">
+    <h2>Schedule Your Appointment</h2>
+    <p> Please take a moment to select a date and time that works best for you.</p>
+    <hr className="modal-divider" /> 
+  </div>
+  <div className="modal-body">
+    <label htmlFor="appointment-time" className="modal-label">Appointment Time:</label>
+    <input 
+      type="datetime-local" 
+      id="appointment-time"
+      value={scheduledTime} 
+      onChange={e => setScheduledTime(e.target.value)} 
+      className="modal-input"
+    />
+    <Button variant='contained'
+      onClick={handleScheduleAppointment}
+      className="modal-confirm-button"
+    >
+      Confirm Appointment
+    </Button>
+  </div>
+</Modal>
+
+           
             <Tooltip title="Go back">
             <IconButton 
                 onClick={handleBackClick} 
@@ -67,12 +136,20 @@ const TherapistProfileDetailsPage = () => {
                 <ArrowLeftIcon />
             </IconButton>
         </Tooltip>
-            
-          
+         
+        <button onClick={() => setModalOpen(true)} className="schedule-button" >
+        <img src={scheduleIcon} alt="Schedule Appointment" className="schedule-icon" />
+        
+  <span>Book Appointment</span>
+  
+</button>
+
             <div className="therapist-profile-header-details-page">
-            
+          
                 <img src={therapist.profilePicture} alt={`Profile of ${therapist.name}`} className="profile-picture-details-page" />
+                
                 <div className="therapist-info-details-page">
+                    
                     <div className="therapist-name-details-page">
                         <h1>{therapist.name}</h1>
                         {therapist.is_verified && (
@@ -81,6 +158,7 @@ const TherapistProfileDetailsPage = () => {
                             </Tooltip>
                         )}
                     </div>
+                    
                     <div className="therapist-description-details-page">
             <p>{therapist.description}</p>
         </div>
@@ -104,8 +182,44 @@ const TherapistProfileDetailsPage = () => {
                 <p>Gender: {therapist.gender || 'Not specified'}</p>
                 </div>
             </div>
+           
+            
         </div>
+        <Snackbar
+                open={openSnackbar}
+                autoHideDuration={3000}
+                onClose={handleCloseSnackbar}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            >
+                <SnackbarContent
+                    style={{ backgroundColor: '#108575' }}
+                    message={
+                        <span style={{ display: 'flex', alignItems: 'center' }}>
+                            <CheckCircleOutlineIcon style={{ marginRight: '8px' }} />
+                            Your appointment has been scheduled successfully!
+                        </span>
+                    }
+                />
+            </Snackbar>
+            <Snackbar
+                open={openErrorSnackbar}
+                autoHideDuration={3000}
+                onClose={handleCloseErrorSnackbar}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            >
+                <SnackbarContent
+                    style={{ backgroundColor: '#525765' }}
+                    message={
+                        <span style={{ display: 'flex', alignItems: 'center' }}>
+                            <ErrorIcon style={{ marginRight: '8px' }} />
+                           You cannot schedule an appointment in the past! Try again
+                        </span>
+                    }
+                />
+            </Snackbar>
         </div>
+      
+        
     );
 };
 
