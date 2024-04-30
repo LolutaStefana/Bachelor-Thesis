@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import lotusSvg from '../../lotus.svg';
 import './nav.css';
 import { useAuth } from '../../context/AuthContext';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -73,6 +74,9 @@ const Nav = () => {
                     <li className="nav-item active">
                         <Link to="/list-therapists" className="nav-link">See therapists</Link>
                     </li>
+                    <li className="nav-item active">
+                        <Link to="/questionnaire-page" className="nav-link">Take test</Link>
+                    </li>
                    
                     <li className="nav-item dropdown active">
                         <button
@@ -90,7 +94,16 @@ const Nav = () => {
                                         <VisibilityIcon />
                                     </IconButton>
 
-                                    ViewProfile
+                                    View Profile
+                                </Link>
+
+                            </li>
+                            <li>
+                                <Link to="/user-appointments" className="dropdown-item" onClick={() => setDropdownOpen(false)}>
+                                <IconButton size="small">
+                                        <EventAvailableIcon />
+                                    </IconButton>
+                                    Appointments
                                 </Link>
                             </li>
                             <li className="dropdown-item" onClick={logout}>

@@ -15,6 +15,8 @@ import ProfileEditPage from './pages/ProfileEditPage/ProfileEditPage';
 import ProfileViewPage from './pages/ProfileViewPage/ProfileViewPage';
 import TherapistProfileDetailsPage from './pages/TherapistProfileDetailsPage/TherapistProfileDetailsPage';
 import ChatBotPage from './pages/ChatBotPage/ChatBotPage';
+import UserAppointmentsPage from './pages/UserAppointmentsPage/UserAppointmentsPage';
+import QuestionnairePage from './pages/QuestionnairePage/QuestionnairePage';
 
 function App() {
     return (
@@ -35,6 +37,9 @@ function App() {
                         <Route path="/edit-profile" element={<ProfileEditPage />} />
                         <Route path="/therapists/:id" element={<TherapistProfileDetailsPage/>} />
                         <Route path="/chat" element={<ChatBotPage />} />
+                        <Route path="/user-appointments" element={<UserAppointmentsPage />} />
+                        <Route path="/questionnaire-page" element={<QuestionnairePage />} />
+                        
                         
                     </Routes>
                 </main>

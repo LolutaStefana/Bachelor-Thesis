@@ -1,13 +1,14 @@
 import React from 'react';
 import { Card, CardActionArea, CardContent, Typography, CardMedia, Box } from '@mui/material';
 import TestIcon from '../../test.png';
+import { Link } from 'react-router-dom';
 
 const TestMatchTherapistCard = () => {
     return (
         <Card  sx={{ Width: 345, backgroundColor: 'rgb(239,233,244)',border: '1px solid rgb(85,89,101,0.1) transparent',
         transition:' transform 0.3s ease' , "&:hover": { transform: 'scale(1.1)',
         borderColor: '#ddd',boxShadow:' 0 4px 8px rgba(0, 0, 0, 0.1)'  } }}>
-            <CardActionArea>
+            <CardActionArea component={Link} to="/questionnaire-page">
                 <CardMedia
                     component="img"
                     height="140"

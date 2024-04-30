@@ -1,0 +1,66 @@
+
+.questionnaire-container {
+  display: flex; /* Set display to flex to use flexbox properties */
+  flex-direction: column; /* Align children vertically */
+  align-items: flex-start; 
+  max-width: 900px; 
+  margin: 30px auto;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px; /* Larger radius for smoother corners */
+  background: #ffffff2f; /* Pure white background for a clean look */
+  border: 1px solid #dddddd14; /* Subtle border */
+}
+
+.question-block {
+  width: 100%;
+  margin-bottom: 25px; /* Increased margin for better separation */
+  padding: 15px; /* Padding inside each question block */
+  background: #f9f9f938; /* Slight grey background to differentiate sections */
+  border-left: 5px solid rgb(136,161,241); /* Colored accent on the side */
+  border-radius: 8px; /* Rounded corners for the block */
+}
+
+.question-text {
+  font-size: 18px;
+  color: #333; 
+  margin-bottom: 10px; 
+}
+
+.answer-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Consistent spacing between options */
+}
+
+input[type="radio"] {
+  accent-color: #4d65af; /* Custom color for radio buttons */
+  margin-right: 10px; /* Space between radio button and label */
+}
+
+label {
+  font-size: 16px; /* Slightly smaller font size for options */
+  color: #666; /* Lighter color for less emphasis on options */
+  line-height: 1.5; /* Improved line height for readability */
+  display: flex;
+  align-items: center; /* Aligns text and radio button vertically */
+}
+
+.submit-button {
+  width: 15%; /* Button width */
+  padding: 4px 0; /* Vertical padding increased */
+  color: white;
+  background: linear-gradient(to right, rgba(1, 1, 1, 0.507), rgba(191, 149, 239, 0.53));
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  align-self: flex-end; /* Aligns this button to the end of the flex-direction */
+  margin-right: 30px; /* Right margin for spacing */
+  font-size: 18px; /* Larger font for better interaction */
+}
+
+
+.submit-button:hover {
+  background:  linear-gradient(to right,  rgba(191, 149, 239, 0.53),rgba(1, 1, 1, 0.507)); /* Hover effect with inverted gradient */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2); /* Shadow for 3D effect on hover */
+}

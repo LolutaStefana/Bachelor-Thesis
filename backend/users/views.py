@@ -1,7 +1,8 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed, NotFound
-from .serializers import UserSerializer, UserProfileUpdateSerializer, AppointmentSerializer
+from .serializers import UserSerializer, UserProfileUpdateSerializer, AppointmentSerializer, GetAppointmentSerializer
 from rest_framework import permissions, status, generics
 from .models import User, Appointment
 from rest_framework.generics import ListAPIView
@@ -205,9 +206,11 @@ class CreateAppointmentView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class AppointmentListView(APIView):
-    def get(self, request):
-        appointments = Appointment.objects.filter(user=request.data.get('user'))
-        serializer = AppointmentSerializer(appointments, many=True)
+    def get(self, request, user_id):
+        user = get_object_or_404(User, pk=user_id)
+        appointments = Appointment.objects.filter(user=user)
+        serializer = GetAppointmentSerializer(appointments, many=True)
+
         return Response(serializer.data)
 
 class UpdateAppointmentStatusView(APIView):
@@ -220,3 +223,66 @@ class UpdateAppointmentStatusView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+CATEGORIES = {
+    'anxiety': {'question_weights': {1: 2, 5: 1, 9: 3}},
+    'depression': {'question_weights': {2: 3, 10: 2, 14: 1}},
+    'stress': {'question_weights': {3: 2, 11: 1, 15: 1}},
+    'sleep_quality': {'question_weights': {4: 3, 12: 1, 16: 1}},
+    'substance_use': {'question_weights': {5: 3, 13: 1}},
+    'relationship_issues': {'question_weights': {6: 2, 14: 2, 18: 1}},
+    'self_esteem': {'question_weights': {7: 2, 15: 1, 19: 2}},
+    'mood_swings': {'question_weights': {8: 3, 16: 2}},
+    'eating_disorders': {'question_weights': {9: 3, 17: 2}},
+    'anger_management': {'question_weights': {10: 3, 18: 2}},
+    'bipolar_disorder': {'question_weights': {20: 3, 21: 2}},
+    'social_anxiety': {'question_weights': {22: 3, 23: 2}},
+    'ptsd': {'question_weights': {24: 2, 25: 2, 26: 1}},
+    'ocd': {'question_weights': {27: 3, 28: 2}},
+    'schizophrenia': {'question_weights': {29: 2, 30: 2, 31: 1}},
+    'adhd': {'question_weights': {32: 3, 33: 1}},
+    'autism_spectrum': {'question_weights': {34: 3, 35: 2}},
+    'personality_disorders': {'question_weights': {36: 2, 37: 1, 38: 1}},
+    'phobias': {'question_weights': {39: 3, 40: 2}},
+    'general_wellbeing': {'question_weights': {41: 2, 42: 1, 43: 1}},
+}
+
+SCORE_RANGES = {
+    'low': range(0, 10),
+    'medium': range(10, 20),
+    'high': range(20, 46)
+}
+
+class EvaluateResponsesView(APIView):
+    def post(self, request):
+        data = request.data.get('answers')
+        scores = {key: 0 for key in CATEGORIES.keys()}
+        max_scores = {key: 0 for key in CATEGORIES.keys()}
+
+        for question_id, answer_value in data.items():
+            question_id = int(question_id)
+            for category, details in CATEGORIES.items():
+                if question_id in details['question_weights']:
+                    weight = details['question_weights'][question_id]
+                    scores[category] += answer_value * weight
+                    max_scores[category] += 5 * weight
+
+        # Identify the two highest scores
+        top_two_categories = sorted(scores.items(), key=lambda x: x[1], reverse=True)[:2]
+
+        # Find therapists that match these categories
+        therapists = User.objects.filter(
+            is_therapist=True,
+            domain_of_interest__in=[category[0] for category in top_two_categories]
+        )
+
+        # Collect therapist data
+        therapist_data = list(therapists)
+
+        return Response({
+            "results": {category: result for category, result in top_two_categories},
+            "therapists": therapist_data,
+            "message": "Scores calculated and classified successfully, therapists recommended based on top concerns."
+        }, status=status.HTTP_200_OK)
+
+

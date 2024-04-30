@@ -19,6 +19,11 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+class TherapistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'name', 'email',   'profile_picture']
+
 class UserProfileUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -47,3 +52,9 @@ class AppointmentSerializer(serializers.ModelSerializer):
         if data['user'] == data['therapist']:
             raise serializers.ValidationError("Cannot schedule an appointment with oneself.")
         return data
+class GetAppointmentSerializer(serializers.ModelSerializer):
+    therapist_details = TherapistSerializer(source='therapist', read_only=True)
+
+    class Meta:
+        model = Appointment
+        fields = ['id', 'user', 'therapist_details', 'status', 'scheduled_time', 'created_at', 'updated_at']
