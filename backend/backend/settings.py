@@ -136,8 +136,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.mailersend.net'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'MS_vJzAgf@trial-351ndgwqvyxgzqx8.mlsender.net'
-EMAIL_HOST_PASSWORD = 'KuA9ARP9SarmbwUZ'
+EMAIL_HOST_USER = 'MS_eg6kbd@trial-v69oxl5oeddg785k.mlsender.net'
+EMAIL_HOST_PASSWORD = '74VVPuqAYIdfRoyt'
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

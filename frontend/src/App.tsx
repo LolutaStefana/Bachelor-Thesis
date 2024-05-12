@@ -17,6 +17,7 @@ import TherapistProfileDetailsPage from './pages/TherapistProfileDetailsPage/The
 import ChatBotPage from './pages/ChatBotPage/ChatBotPage';
 import UserAppointmentsPage from './pages/UserAppointmentsPage/UserAppointmentsPage';
 import QuestionnairePage from './pages/QuestionnairePage/QuestionnairePage';
+import ResultsPage from './pages/ResultsPage/ResultPage';
 
 function App() {
     return (
@@ -39,6 +40,7 @@ function App() {
                         <Route path="/chat" element={<ChatBotPage />} />
                         <Route path="/user-appointments" element={<UserAppointmentsPage />} />
                         <Route path="/questionnaire-page" element={<QuestionnairePage />} />
+                        <Route path="/results-page" element={<ResultsPage/>} />
                         
                         
                     </Routes>

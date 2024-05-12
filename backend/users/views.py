@@ -259,6 +259,7 @@ class EvaluateResponsesView(APIView):
         scores = {key: 0 for key in CATEGORIES.keys()}
         max_scores = {key: 0 for key in CATEGORIES.keys()}
 
+        # Calculate scores and max_scores based on weights
         for question_id, answer_value in data.items():
             question_id = int(question_id)
             for category, details in CATEGORIES.items():
@@ -276,13 +277,25 @@ class EvaluateResponsesView(APIView):
             domain_of_interest__in=[category[0] for category in top_two_categories]
         )
 
-        # Collect therapist data
-        therapist_data = list(therapists)
+        # Serialize therapist data
+        therapist_data = [
+            {
+                'id': therapist.id,
+                'name': therapist.name,
+                'email': therapist.email,
+                'country':therapist.country,
+                'city':therapist.city,
+                'domain_of_interest': therapist.domain_of_interest,
+                'years_of_experience': therapist.years_of_experience,
+                'is_verified': therapist.is_verified,
+                'profile_picture': request.build_absolute_uri(therapist.profile_picture.url) if therapist.profile_picture else None
+            }
+            for therapist in therapists
+        ]
 
         return Response({
             "results": {category: result for category, result in top_two_categories},
             "therapists": therapist_data,
             "message": "Scores calculated and classified successfully, therapists recommended based on top concerns."
         }, status=status.HTTP_200_OK)
-
 

@@ -22,7 +22,6 @@ const HomePage = () => {
     let content;
 
     if (name === '') {
-        // The user is not logged in
         content = (
             <Container maxWidth="sm" style={{ textAlign: 'center', padding: '2rem' }}>
                 <Typography variant="h4" gutterBottom>
@@ -34,7 +33,6 @@ const HomePage = () => {
             </Container>
         );
     } else {
-        // The user is logged in
         content = (
             <Container maxWidth="lg">
                 <WelcomeBanner name={name} />

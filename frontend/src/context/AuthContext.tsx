@@ -1,14 +1,17 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
+// Extend the interface to include isTherapist
 interface AuthContextType {
     userId: number | null;
     setUserId: (id: number | null) => void;
     name: string;
     setName: (name: string) => void;
     loading: boolean;
-    photoUrl: string | null; // Add a photoUrl state
-    setPhotoUrl: (url: string | null) => void; // Add a setter for the photoUrl
-    refreshUserData: () => void; // Function to refresh user data
+    photoUrl: string | null;
+    setPhotoUrl: (url: string | null) => void;
+    refreshUserData: () => void;
+    isTherapist: boolean; // Add isTherapist to the Auth context
+    setIsTherapist: (value: boolean) => void; // Add setter for isTherapist
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -17,7 +20,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [userId, setUserId] = useState<number | null>(null);
     const [name, setName] = useState('');
     const [loading, setLoading] = useState(true);
-    const [photoUrl, setPhotoUrl] = useState<string | null>(null); // Initialize photoUrl state
+    const [photoUrl, setPhotoUrl] = useState<string | null>(null);
+    const [isTherapist, setIsTherapist] = useState<boolean>(false); // Initialize isTherapist state
 
     useEffect(() => {
         refreshUserData();
@@ -34,18 +38,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                 const content = await response.json();
                 setUserId(content.id);
                 setName(content.name);
-                const fullPhotoUrl = content.profile_picture ? `http://localhost:8000${content.profile_picture}` : `http://localhost:8000/media/profile_pictures/blank.jpg`;
+                const fullPhotoUrl = content.profile_picture
+                    ? `http://localhost:8000${content.profile_picture}`
+                    : `http://localhost:8000/media/profile_pictures/blank.jpg`;
                 setPhotoUrl(fullPhotoUrl);
+
+                // Check for is_therapist field in the response
+                setIsTherapist(content.is_therapist || false);
             } else {
+                setUserId(null);
                 setName('');
                 setPhotoUrl(null);
-                setUserId(null);
+                setIsTherapist(false);
             }
         } catch (error) {
             console.error('Error:', error);
+            setUserId(null);
             setName('');
             setPhotoUrl(null);
-            setUserId(null);
+            setIsTherapist(false);
         } finally {
             setLoading(false);
         }
@@ -60,6 +71,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         photoUrl,
         setPhotoUrl,
         refreshUserData,
+        isTherapist,
+        setIsTherapist,
     };
 
     return (
@@ -69,6 +82,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     );
 };
 
+// Hook to access the Auth context
 export const useAuth = () => {
     const context = useContext(AuthContext);
     if (context === undefined) {
