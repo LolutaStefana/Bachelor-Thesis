@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardActionArea, CardContent, Typography, CardMedia, Box } from '@mui/material';
-import TestIcon from '../../test.png';
+import TestIcon from '../../assets/test.png';
 import { Link } from 'react-router-dom';
 
 const TestMatchTherapistCard = () => {

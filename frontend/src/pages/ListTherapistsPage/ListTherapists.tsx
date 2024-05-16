@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './listtherapists.css';
 import TherapistCard from '../../components/TherapistCard/TherapistCard';
-import NotFound from '../../not_found.svg'
+import NotFound from '../../assets/not_found.svg'
 interface Therapist {
   id: number;
   name: string;

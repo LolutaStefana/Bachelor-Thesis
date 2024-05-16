@@ -5,7 +5,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import IconButton from '@mui/material/IconButton';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import * as psihoSvg from '../../psiho.svg';
+import * as psihoSvg from '../../assets/psiho.svg';
 import './login.css';
 import { useAuth } from '../../context/AuthContext';
 

@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../context/AuthContext'; // Adjust the import path as necessary
-import './userappointments.css'; // Assuming you have a separate CSS file for styling
+import { useAuth } from '../../context/AuthContext';
+import './userappointments.css'; 
 import { Box, CircularProgress } from '@mui/material';
-import NoData from '../../no_data.png'
-import { useNavigate } from 'react-router-dom';
+import NoData from '../../assets/no_data.png'
 
 const UserAppointmentsPage = () => {
     const [appointments, setAppointments] = useState([]);
     const [loading, setLoading] = useState(true);
     const { userId } = useAuth();
-    const navigate = useNavigate(); 
 
     useEffect(() => {
         const fetchAppointments = async () => {
@@ -39,10 +37,6 @@ const UserAppointmentsPage = () => {
 
         fetchAppointments();
     }, [userId]);
-    const goToTherapistsPage = () => {
-        navigate('/list-therapists'); // Navigate to the therapists listing page
-    };
-
     if (loading) return  <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
     <CircularProgress />
 </Box>;

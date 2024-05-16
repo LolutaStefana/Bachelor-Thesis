@@ -6,10 +6,10 @@ import WelcomeBanner from '../../components/WelcomeBanner/WelcomeBanner';
 import FindTherapistCard from '../../components/FindTherapistCard/FindTherapistCard';
 import ChatBotCard from '../../components/ChatBotCard/ChatBotCard';
 import TestMatchTherapistCard from '../../components/TestMatchTherapistCard/TestMatchTherapistCard';
+import AppointmentsCard from '../../components/AppointmentsCard/AppointmentsCard';
 
 const HomePage = () => {
-    const { name, loading } = useAuth();
-
+    const { name, loading, isTherapist } = useAuth();
 
     if (loading) {
         return (
@@ -32,10 +32,21 @@ const HomePage = () => {
                 </Typography>
             </Container>
         );
+    } else if (isTherapist) {
+        content = (
+            <Container maxWidth="lg">
+                <WelcomeBanner name={name} description="Here you can manage your appointments and clients." />
+                <Grid container spacing={5} style={{ marginTop: '20px' }} justifyContent="center" alignItems="center">
+                    <Grid item xs={12} sm={6} md={4}>
+                        <AppointmentsCard />
+                    </Grid>
+                </Grid>
+            </Container>
+        );
     } else {
         content = (
             <Container maxWidth="lg">
-                <WelcomeBanner name={name} />
+                <WelcomeBanner name={name} description="Discover your path to happiness." />
                 <Grid container spacing={5} style={{ marginTop: '20px' }}>
                     <Grid item xs={12} sm={6} md={4}>
                         <FindTherapistCard />

@@ -1,0 +1,81 @@
+.therapist-appointments-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.appointment-cards {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+}
+
+.appointment-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 500px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-card:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.appointment-card.pending {
+    background-color: #f0f0f0; /* Light grey for pending */
+}
+
+.appointment-card.accepted {
+    background-color: #d4edda; /* Soft green for accepted */
+}
+
+.appointment-card.canceled {
+    background-color: #f8d7da; /* Soft red for declined */
+}
+
+.no-appointments {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.not-data-found-image {
+    width: 400px; /* Adjusted for better sizing */
+    margin-bottom: 20px; /* Space between the image and the text/link */
+}
+
+.therapist-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff; /* White border for better contrast */
+}
+
+.appointment-info {
+    flex-grow: 1;
+    padding-left: 20px;
+}
+
+.appointment-info h2 {
+    font-size: 1.25rem;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.appointment-info p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 2px 0;
+}

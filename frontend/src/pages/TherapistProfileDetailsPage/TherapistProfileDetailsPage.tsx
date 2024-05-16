@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './therapistprofilepage.css';
 import Modal from '../../components/Modal/Modal';
-import scheduleIcon from '../../schedulle.png';
+import scheduleIcon from '../../assets/schedulle.png';
 import { useAuth } from '../../context/AuthContext';
 import { Box, Button, CircularProgress, IconButton, Snackbar, SnackbarContent, Tooltip } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';

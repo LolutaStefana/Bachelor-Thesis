@@ -2,7 +2,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed, NotFound
-from .serializers import UserSerializer, UserProfileUpdateSerializer, AppointmentSerializer, GetAppointmentSerializer
+from .serializers import UserSerializer, UserProfileUpdateSerializer, AppointmentSerializer, GetAppointmentSerializer, \
+    GetAppointmentForTherapistSerializer
 from rest_framework import permissions, status, generics
 from .models import User, Appointment
 from rest_framework.generics import ListAPIView
@@ -299,3 +300,42 @@ class EvaluateResponsesView(APIView):
             "message": "Scores calculated and classified successfully, therapists recommended based on top concerns."
         }, status=status.HTTP_200_OK)
 
+class TherapistAppointmentListView(APIView):
+    def get(self, request):
+        token = request.COOKIES.get('jwt')
+        if not token:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        therapist = verify_jwt_token(token)
+
+        if not therapist.is_therapist:
+             return Response({'error': 'Permission denied'}, status=status.HTTP_403_FORBIDDEN)
+
+        appointments = Appointment.objects.filter(therapist=therapist)
+        serializer = GetAppointmentForTherapistSerializer(appointments, many=True)
+        return Response(serializer.data)
+class UpdateTherapistAppointmentStatusView(APIView):
+
+    def patch(self, request, pk):
+        token = request.COOKIES.get('jwt')
+        if not token:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        therapist = verify_jwt_token(token)
+
+        if not therapist.is_therapist:
+            return Response({'error': 'Permission denied'}, status=status.HTTP_403_FORBIDDEN)
+
+        appointment = Appointment.objects.filter(pk=pk, therapist=therapist).first()
+        if appointment is None:
+            raise NotFound('Appointment not found!')
+
+        data = request.data
+        if 'status' not in data:
+            return Response({'error': 'Status is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = AppointmentSerializer(appointment, data={'status': data['status']}, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

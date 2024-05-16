@@ -18,6 +18,7 @@ import ChatBotPage from './pages/ChatBotPage/ChatBotPage';
 import UserAppointmentsPage from './pages/UserAppointmentsPage/UserAppointmentsPage';
 import QuestionnairePage from './pages/QuestionnairePage/QuestionnairePage';
 import ResultsPage from './pages/ResultsPage/ResultPage';
+import TherapistAppointmentsPage from './pages/TherapistAppointmentsPage/TherapistAppointmentsPage';
 
 function App() {
     return (
@@ -41,7 +42,7 @@ function App() {
                         <Route path="/user-appointments" element={<UserAppointmentsPage />} />
                         <Route path="/questionnaire-page" element={<QuestionnairePage />} />
                         <Route path="/results-page" element={<ResultsPage/>} />
-                        
+                        <Route path="/view-appointments" element={<TherapistAppointmentsPage/>} />
                         
                     </Routes>
                 </main>

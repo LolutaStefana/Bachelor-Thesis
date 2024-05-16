@@ -1,5 +1,5 @@
 import React from 'react';
-import lotusSvg from '../../lotus.svg';
+import lotusSvg from '../../assets/lotus.svg';
 
 const Footer: React.FC = () => {
     return (

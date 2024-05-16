@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardActionArea, CardContent, Typography, CardMedia, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
-import TherapistImage from '../../therapists-card.jpg';
+import TherapistImage from '../../assets/therapists-card.jpg';
 
 const FindTherapistCard = () => {
     return (

@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: linear-gradient(to bottom, rgba(234, 235, 240, 0.4), rgba(104, 128, 215, 0.6)), url('C:\Users\stefa\Desktop\Licenta\frontend\src\lotus_backround.jpg');
+    background-image: linear-gradient(to bottom, rgba(234, 235, 240, 0.4), rgba(104, 128, 215, 0.6)), url('C:\Users\stefa\Desktop\Licenta\frontend\src\assets\lotus_backround.jpg');
     background-size: cover;
     background-position: center;
     animation: fadeIn 2s ease-out;

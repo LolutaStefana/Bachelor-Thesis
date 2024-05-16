@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import lotusSvg from '../../lotus.svg';
+import lotusSvg from '../../assets/lotus.svg';
 import './nav.css';
 import { useAuth } from '../../context/AuthContext'; 
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
@@ -58,9 +58,12 @@ const Nav = () => {
     let menu;
     if (!loading) {
         if (isTherapist && name!=='' ) {
-            homeLink = "/homepage-therapist";
+            homeLink = "/homepage";
             menu = (
                 <ul className="navbar-nav me-auto mb-2 mb-md-0">
+                    <li className="nav-item active">
+                        <Link to="/chat" className="nav-link">Appointments</Link>
+                    </li>
                     <li className="nav-item dropdown active">
                         <button
                             className="nav-link dropdown-toggle"
@@ -82,14 +85,6 @@ const Nav = () => {
                                         <VisibilityIcon />
                                     </IconButton>
                                     View Profile
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/user-appointments" className="dropdown-item" onClick={() => setDropdownOpen(false)}>
-                                    <IconButton size="small">
-                                        <EventAvailableIcon />
-                                    </IconButton>
-                                    My Appointments
                                 </Link>
                             </li>
                             <li className="dropdown-item" onClick={logout}>
@@ -129,7 +124,7 @@ const Nav = () => {
                                 />
                             )}
                         </button>
-                        <ul ref={dropdownRef} className={`dropdown-menu ${dropdownOpen ? 'show' : ''}`} style={{ top: '110%', left: '-120%', minWidth: '8rem', backgroundColor: 'rgb(85,89,101,0.9)', padding: '0.5rem' }}>
+                        <ul ref={dropdownRef} className={`dropdown-menu ${dropdownOpen ? 'show' : ''}`} style={{ top: '110%', left: '-170%', minWidth: '8rem', backgroundColor: 'rgb(85,89,101,0.9)', padding: '0.5rem' }}>
                             <li>
                                 <Link to="/view-profile" className="dropdown-item" onClick={() => setDropdownOpen(false)}>
                                     <IconButton size="small">

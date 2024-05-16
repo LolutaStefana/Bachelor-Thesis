@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import TherapistCard from '../../components/TherapistCard/TherapistCard'; // Ensure this component is correctly imported
-import NotFoundImage from '../../not_found.svg'; // Update path as needed
+import NotFoundImage from '../../assets/not_found.svg'; // Update path as needed
 import { Typography} from '@mui/material';
 
 const ResultsPage = () => {

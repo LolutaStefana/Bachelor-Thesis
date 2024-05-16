@@ -42,14 +42,13 @@ class AppointmentSerializer(serializers.ModelSerializer):
         model = Appointment
         fields = ['id', 'user', 'therapist', 'status', 'scheduled_time', 'created_at', 'updated_at']
 
-
     def validate_scheduled_time(self, value):
         if value < timezone.now():
             raise serializers.ValidationError("Cannot schedule an appointment in the past.")
         return value
 
     def validate(self, data):
-        if data['user'] == data['therapist']:
+        if 'user' in data and 'therapist' in data and data['user'] == data['therapist']:
             raise serializers.ValidationError("Cannot schedule an appointment with oneself.")
         return data
 class GetAppointmentSerializer(serializers.ModelSerializer):
@@ -58,3 +57,14 @@ class GetAppointmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Appointment
         fields = ['id', 'user', 'therapist_details', 'status', 'scheduled_time', 'created_at', 'updated_at']
+class UserDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'name', 'profile_picture']
+class GetAppointmentForTherapistSerializer(serializers.ModelSerializer):
+    user_details = UserDetailSerializer(source='user', read_only=True)
+    therapist_details = UserDetailSerializer(source='therapist', read_only=True)
+
+    class Meta:
+        model = Appointment
+        fields = ['id', 'user_details', 'therapist_details', 'status', 'scheduled_time', 'created_at', 'updated_at']

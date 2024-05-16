@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardActionArea, CardContent, Typography, CardMedia, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
-import ChatIcon from '../../chatbot.png'
+import ChatIcon from '../../assets/chatbot.png';
 
 const ChatBotCard = () => {
     return (

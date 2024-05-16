@@ -1,7 +1,8 @@
 from django.urls import path
 from .views import RegisterView, LoginView, UserView, LogoutView, NormalUserListView, TherapistListView, \
     Send2FAEmailAPIView, UserProfileUpdateView, TherapistDetailView, AppointmentListView, CreateAppointmentView, \
-    UpdateAppointmentStatusView, EvaluateResponsesView
+    UpdateAppointmentStatusView, EvaluateResponsesView, TherapistAppointmentListView, \
+    UpdateTherapistAppointmentStatusView
 
 urlpatterns = [
     path('register', RegisterView.as_view()) ,
@@ -17,4 +18,6 @@ urlpatterns = [
     path('appointments/create', CreateAppointmentView.as_view()),
     path('appointments/update/<int:pk>', UpdateAppointmentStatusView.as_view()),
     path('evaluate-responses', EvaluateResponsesView.as_view()),
+    path('therapist/appointments/', TherapistAppointmentListView.as_view()),
+    path('therapist/appointment/status/<int:pk>/', UpdateTherapistAppointmentStatusView.as_view()),
 ]
