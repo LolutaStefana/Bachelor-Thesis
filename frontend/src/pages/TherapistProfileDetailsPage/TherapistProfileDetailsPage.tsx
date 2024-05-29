@@ -55,7 +55,7 @@ const TherapistProfileDetailsPage = () => {
         fetchTherapistDetails();
     }, [id]);
     const handleBackClick = () => {
-        navigate(-1); // navigate back to the previous page
+        navigate(-1); 
     };
 
     if (!therapist) {
@@ -83,7 +83,7 @@ const TherapistProfileDetailsPage = () => {
                 body: JSON.stringify(body)
             });
             if (response.ok) {
-                setModalOpen(false); // Close the modal on success
+                setModalOpen(false); 
                 setOpenSnackbar(true);
             } else {
                 throw new Error('Failed to schedule appointment');

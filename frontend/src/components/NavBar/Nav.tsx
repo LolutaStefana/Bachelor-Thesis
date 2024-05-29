@@ -62,7 +62,7 @@ const Nav = () => {
             menu = (
                 <ul className="navbar-nav me-auto mb-2 mb-md-0">
                     <li className="nav-item active">
-                        <Link to="/chat" className="nav-link">Appointments</Link>
+                        <Link to="/view-appointments" className="nav-link">Appointments</Link>
                     </li>
                     <li className="nav-item dropdown active">
                         <button

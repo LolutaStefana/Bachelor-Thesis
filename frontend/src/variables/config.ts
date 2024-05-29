@@ -1,1 +1,1 @@
-export const API_URL = 'https://les-fake-cdt-programmer.trycloudflare.com/api/message';
+export const API_URL = 'https://throughout-accessibility-wider-jazz.trycloudflare.com/api/message';

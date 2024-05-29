@@ -1,6 +1,5 @@
-// Modal.js
 import React from 'react';
-import './modal.css'; // Import the CSS module
+import './modal.css'; 
 import { Tooltip } from '@mui/material';
 
 interface ModalProps {
