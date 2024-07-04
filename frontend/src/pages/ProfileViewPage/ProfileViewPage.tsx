@@ -6,7 +6,7 @@ import '../ProfileEditPage/profileedit.css';
 
 interface ProfileData {
     name: string;
-    email:string;
+    email: string;
     country: string;
     city: string;
     gender: string;
@@ -18,7 +18,7 @@ interface ProfileData {
 const ProfileViewPage: React.FC = () => {
     const [profileData, setProfileData] = useState<ProfileData>({
         name: '',
-        email:'',
+        email: '',
         country: '',
         city: '',
         gender: '',
@@ -27,7 +27,7 @@ const ProfileViewPage: React.FC = () => {
         date_of_birth: '',
     });
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    
+
 
     useEffect(() => {
         const fetchProfileData = async () => {
@@ -67,48 +67,48 @@ const ProfileViewPage: React.FC = () => {
         fetchProfileData();
     }, []);
 
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
     const redirectToEditProfile = () => {
-        navigate('/edit-profile'); 
+        navigate('/edit-profile');
     };
 
-    
+
     if (isLoading) return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '200px', height: '200px' }}>
-        <CircularProgress size={150} thickness={2} />
-    </Box>
-</div>;
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '200px', height: '200px' }}>
+            <CircularProgress size={150} thickness={2} />
+        </Box>
+    </div>;
 
     return (
         <Box className="profile-edit-page-wrapper">
-        <Box className="profile-edit-container-wrapper">
-        <Box className="profile-card" sx={{  bgcolor: 'rgb(197,205,243,0)', p: 4, borderRadius: 2,width: 800 }}>
-        <Box textAlign="right">
-    <Tooltip title="Edit profile"> 
-        <Button onClick={redirectToEditProfile} sx={{ mt: 1 }}>
-            <EditIcon color="action" />
-        
-        </Button>
-    </Tooltip>
-</Box>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', pb: 4, borderBottom: '1px solid rgb(161,179,242)' }}>
-                            
-                            <Avatar src={profileData.profilePicture} alt="Profile" sx={{ width: 150, height: 150, mb: 2 }}  />
-                            
-                            <Typography variant="h6" sx={{ fontWeight: 'bold' }}>{profileData.name}</Typography>
-                           
-                        </Box>
-                        <Box sx={{ pt: 4 }}>
-                            <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', mb: 1 }}><strong>Email:</strong> {profileData.email}</Typography>
-                            <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', mb: 1 }}><strong>Country:</strong> {profileData.country}</Typography>
-                            <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', mb: 1 }}><strong>City:</strong> {profileData.city}</Typography>
-                            <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', mb: 1 }}><strong>Gender:</strong> {profileData.gender}</Typography>
-                            <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', mb: 1 }}><strong>Date of Birth:</strong> {profileData.date_of_birth}</Typography>
-                            <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', mb: 1 }}><strong>Description:</strong> {profileData.description}</Typography>
-                        </Box>
+            <Box className="profile-edit-container-wrapper">
+                <Box className="profile-card" sx={{ bgcolor: 'rgb(197,205,243,0)', p: 4, borderRadius: 2, width: 800 }}>
+                    <Box textAlign="right">
+                        <Tooltip title="Edit profile">
+                            <Button onClick={redirectToEditProfile} sx={{ mt: 1 }}>
+                                <EditIcon color="action" />
+
+                            </Button>
+                        </Tooltip>
+                    </Box>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', pb: 4, borderBottom: '1px solid rgb(161,179,242)' }}>
+
+                        <Avatar src={profileData.profilePicture} alt="Profile" sx={{ width: 150, height: 150, mb: 2 }} />
+
+                        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>{profileData.name}</Typography>
+
+                    </Box>
+                    <Box sx={{ pt: 4 }}>
+                        <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', mb: 1 }}><strong>Email:</strong> {profileData.email}</Typography>
+                        <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', mb: 1 }}><strong>Country:</strong> {profileData.country}</Typography>
+                        <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', mb: 1 }}><strong>City:</strong> {profileData.city}</Typography>
+                        <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', mb: 1 }}><strong>Gender:</strong> {profileData.gender}</Typography>
+                        <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', mb: 1 }}><strong>Date of Birth:</strong> {profileData.date_of_birth}</Typography>
+                        <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', mb: 1 }}><strong>Description:</strong> {profileData.description}</Typography>
                     </Box>
                 </Box>
             </Box>
+        </Box>
     );
 };
 

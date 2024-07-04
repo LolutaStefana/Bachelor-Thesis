@@ -102,7 +102,7 @@ const ChatBotPage: React.FC = () => {
       } else {
         clearInterval(typingTimeoutRef.current!);
       }
-    }, 50); // Typing speed in milliseconds
+    }, 50); 
   };
 
   const mockApiCall = async (input: string): Promise<string> => {
@@ -134,7 +134,7 @@ const ChatBotPage: React.FC = () => {
           }}
           ref={chatWindowRef}
         >
-          {renderMessages()} {/* Use the renderMessages function */}
+          {renderMessages()} {}
         </div>
         <div className="input-wrapper">
           <input

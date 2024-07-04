@@ -1,7 +1,6 @@
 from rest_framework.test import APITestCase
 from rest_framework import status
 from django.contrib.auth import get_user_model
-import json
 
 User = get_user_model()
 
@@ -128,45 +127,3 @@ class UserViewTests(APITestCase):
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]['therapist_details']['id'], self.therapist_id)
 
-    # def test_update_appointment_status(self):
-    #     response = self.client.post(self.register_url, self.user_data)
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #     login_response = self.client.post(self.login_url, {'email': 'test@example.com', 'password': 'testpassword'})
-    #     self.user_token = login_response.data['jwt']
-    #     self.user_id = User.objects.get(email='test@example.com').id
-    #
-    #     response = self.client.post(self.register_url, self.therapist_data)
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #     therapist_login_response = self.client.post(self.login_url,
-    #                                                 {'email': 'therapist@example.com', 'password': 'therapistpassword'})
-    #     self.therapist_id = User.objects.get(email='therapist@example.com')
-    #
-    #     self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + self.user_token)
-    #     appointment_data = {
-    #         'user': self.user_id,
-    #         'therapist': self.therapist_id,
-    #         'scheduled_time': '2024-10-10T14:00:00Z'
-    #     }
-    #     create_response = self.client.post(self.create_appointment_url, appointment_data)
-    #     self.assertEqual(create_response.status_code, status.HTTP_201_CREATED)
-    #     appointment_id = create_response.data['id']
-    #
-    #     # Update the appointment
-    #     update_data = {
-    #         'status': 'accepted',
-    #         'user': self.user_id,
-    #         'therapist_details': self.therapist_id
-    #     }
-    #
-    #     update_appointment_url = self.update_appointment_url.format(pk=appointment_id)
-    #     update_response = self.client.patch(
-    #         update_appointment_url,
-    #         json.dumps(update_data),
-    #         content_type='application/json'
-    #     )
-    #     print(appointment_data)
-    #     self.assertEqual(update_response.status_code, status.HTTP_200_OK)
-    #     self.assertEqual(update_response.data['status'], 'accepted')
-    #
-    #     # Optionally check that other fields were not inadvertently modified
-    #     self.assertEqual(update_response.data['therapist'], self.therapist_id)

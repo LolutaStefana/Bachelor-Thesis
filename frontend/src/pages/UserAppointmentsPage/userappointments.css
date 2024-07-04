@@ -31,15 +31,15 @@
 }
 
 .appointment-card.pending {
-    background-color: #f0f0f0; /* Light grey for pending */
+    background-color: #f0f0f0; 
 }
 
 .appointment-card.accepted {
-    background-color: #d4edda; /* Soft green for accepted */
+    background-color: #d4edda; 
 }
 
 .appointment-card.declined {
-    background-color: #f8d7da; /* Soft red for declined */
+    background-color: #f8d7da; 
 }
 
 .no-appointments {
@@ -51,8 +51,8 @@
 }
 
 .not-data-found-image {
-    width: 400px; /* Adjusted for better sizing */
-    margin-bottom: 20px; /* Space between the image and the text/link */
+    width: 400px; 
+    margin-bottom: 20px; 
 }
 
 .therapist-photo {
@@ -60,7 +60,7 @@
     height: 80px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #fff; /* White border for better contrast */
+    border: 2px solid #fff; 
 }
 
 .appointment-info {

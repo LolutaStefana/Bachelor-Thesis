@@ -72,7 +72,7 @@ const StartPage: React.FC = () => {
                         key={index}
                         expanded={expanded[index]}
                         onChange={handleExpand(index)}
-                        style={{backgroundColor: 'rgb(234,229,244,0.5)', marginBottom: '10px' }}
+                        style={{ backgroundColor: 'rgb(234,229,244,0.5)', marginBottom: '10px' }}
                     >
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}

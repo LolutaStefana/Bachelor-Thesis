@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Box, CircularProgress, IconButton, Tooltip, Snackbar, SnackbarContent } from '@mui/material';
 import { CheckCircleOutline, CancelOutlined } from '@mui/icons-material';
 import { useAuth } from '../../context/AuthContext';
-import Modal from '../../components/Modal/Modal';  
-import './therapistappointmentspage.css'; 
+import Modal from '../../components/Modal/Modal';
+import './therapistappointmentspage.css';
 import NoData from '../../assets/no_data.png';
 
 interface UserDetails {
@@ -23,8 +23,8 @@ const TherapistAppointmentsPage: React.FC = () => {
     const [appointments, setAppointments] = useState<Appointment[]>([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [modalContent, setModalContent] = useState<{appointmentId: string, status: string, message: string} | null>(null);
-    const [snackbarContent, setSnackbarContent] = useState<{message: string, severity: 'success' | 'error'} | null>(null);
+    const [modalContent, setModalContent] = useState<{ appointmentId: string, status: string, message: string } | null>(null);
+    const [snackbarContent, setSnackbarContent] = useState<{ message: string, severity: 'success' | 'error' } | null>(null);
     const { userId } = useAuth();
 
     useEffect(() => {
@@ -37,7 +37,7 @@ const TherapistAppointmentsPage: React.FC = () => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    credentials: 'include', 
+                    credentials: 'include',
                 });
                 if (!response.ok) throw new Error('Network response was not ok.');
                 const data = await response.json();
@@ -68,7 +68,7 @@ const TherapistAppointmentsPage: React.FC = () => {
     }, [userId]);
 
     const handleOpenModal = (appointmentId: string, status: string, message: string) => {
-        setModalContent({appointmentId, status, message});
+        setModalContent({ appointmentId, status, message });
         setIsModalOpen(true);
     };
 
@@ -124,7 +124,7 @@ const TherapistAppointmentsPage: React.FC = () => {
                             <div key={appointment.id} className={`appointment-card ${appointment.status}`}>
                                 <img src={appointment.user_details.profile_picture} alt={appointment.user_details.name} className="therapist-photo" />
                                 <div className="appointment-info">
-                                    <h2 style={{marginRight:'100px'}}>Appointment with {appointment.user_details.name}</h2>
+                                    <h2 style={{ marginRight: '100px' }}>Appointment with {appointment.user_details.name}</h2>
                                     <p>Date: {new Date(appointment.scheduled_time).toLocaleString()}</p>
                                     <p>Status: {appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)}</p>
                                 </div>
@@ -133,7 +133,7 @@ const TherapistAppointmentsPage: React.FC = () => {
                                         <Tooltip title="Accept">
                                             <IconButton
                                                 aria-label="accept"
-                                                style={{ color: '#94AAF1' }} 
+                                                style={{ color: '#94AAF1' }}
                                                 onClick={() => handleOpenModal(appointment.id, 'accepted', 'Are you sure you want to accept this appointment?')}
                                             >
                                                 <CheckCircleOutline />
@@ -142,7 +142,7 @@ const TherapistAppointmentsPage: React.FC = () => {
                                         <Tooltip title="Decline">
                                             <IconButton
                                                 aria-label="decline"
-                                                style={{ color: '#555965' }} 
+                                                style={{ color: '#555965' }}
                                                 onClick={() => handleOpenModal(appointment.id, 'canceled', 'Are you sure you want to decline this appointment?')}
                                             >
                                                 <CancelOutlined />
@@ -163,11 +163,11 @@ const TherapistAppointmentsPage: React.FC = () => {
             {modalContent && (
                 <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                     <div >
-                    <h3 style={{textAlign: 'center',marginBottom:'40px', color:'#555965'}}>{modalContent.message}</h3>
-                    <div className="modal-buttons">
-                        <button className="confirm-button" onClick={() => updateAppointmentStatus(modalContent.appointmentId, modalContent.status)}>Confirm</button>
-                        <button className="cancel-button" onClick={handleCloseModal}>Cancel</button>
-                    </div>
+                        <h3 style={{ textAlign: 'center', marginBottom: '40px', color: '#555965' }}>{modalContent.message}</h3>
+                        <div className="modal-buttons">
+                            <button className="confirm-button" onClick={() => updateAppointmentStatus(modalContent.appointmentId, modalContent.status)}>Confirm</button>
+                            <button className="cancel-button" onClick={handleCloseModal}>Cancel</button>
+                        </div>
                     </div>
                 </Modal>
             )}

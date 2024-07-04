@@ -49,7 +49,7 @@ const questions: Question[] = [
   { id: 33, text: "Do you suffer from chronic pain without a medical diagnosis?", category: "psychosomatic" },
   { id: 34, text: "Do you often feel misunderstood by others?", category: "personality_disorders" },
   { id: 35, text: "Do you find that your relationships are often turbulent?", category: "relationship_issues" },
-  { id: 36, text: "Do you have thoughts that you would be better off dead?", category: "depression" },
+  { id: 36, text: "Do you ever think that it would be better for you to give up on life?", category: "depression" },
   { id: 37, text: "Do you often feel restless or unable to sit still?", category: "anxiety" },
   { id: 38, text: "Do you experience periods of intense activity or thinking?", category: "bipolar_disorder" },
   { id: 39, text: "Do you often feel paranoid or suspicious without reason?", category: "paranoia" },
@@ -69,7 +69,7 @@ const QuestionnairePage = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [answers, setAnswers] = useState<AnswersState>({});
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(true); 
+  const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(true);
   const navigate = useNavigate();
 
   const handleAnswerChange = (questionId: number, value: number) => {
@@ -106,27 +106,27 @@ const QuestionnairePage = () => {
     }
   };
 
- const handleSubmit = async () => {
-  try {
-    const response = await fetch('http://localhost:8000/api/evaluate-responses', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ answers })
-    });
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/api/evaluate-responses', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ answers })
+      });
 
-    if (!response.ok) {
-      throw new Error('Failed to submit questionnaire.');
+      if (!response.ok) {
+        throw new Error('Failed to submit questionnaire.');
+      }
+
+      const result = await response.json();
+      console.log(result);
+      navigate('/results-page', { state: { therapists: result.therapists } });
+    } catch (error) {
+      console.error('Error submitting questionnaire:', error);
     }
+  };
 
-    const result = await response.json();
-    console.log(result);
-    navigate('/results-page', { state: { therapists: result.therapists } });
-  } catch (error) {
-    console.error('Error submitting questionnaire:', error);
-  }
-};
-
-  const progress = (currentPage ) / Math.ceil(questions.length / QUESTIONS_PER_PAGE) * 100;
+  const progress = (currentPage) / Math.ceil(questions.length / QUESTIONS_PER_PAGE) * 100;
 
   const startIndex = currentPage * QUESTIONS_PER_PAGE;
   const currentQuestions = questions.slice(startIndex, startIndex + QUESTIONS_PER_PAGE);
@@ -134,10 +134,10 @@ const QuestionnairePage = () => {
   return (
     <div className="questionnaire-container">
       <div className="questionnaire-description">
-      <LinearProgress variant="determinate" value={progress} style={{marginBottom:'30px'}}/>
+        <LinearProgress variant="determinate" value={progress} style={{ marginBottom: '30px' }} />
         <p>Please answer the following questions to help us understand your mental health better. Your responses will be used to provide the best therapist for your needs.</p>
       </div>
-     
+
       {currentQuestions.map(question => (
         <div key={question.id} className="question-block">
           <p className="question-text">{question.text}</p>
@@ -157,7 +157,7 @@ const QuestionnairePage = () => {
           </div>
         </div>
       ))}
-     <div style={{ display: 'flex', margin: '20px 0' }}>
+      <div style={{ display: 'flex', margin: '20px 0' }}>
         {currentPage > 0 && (
           <IconButton onClick={handlePrevious}>
             <ArrowBackIosIcon />
@@ -168,25 +168,25 @@ const QuestionnairePage = () => {
             <ArrowForwardIosIcon />
           </IconButton>
         ) : (
-          <Button className="submit-button-questionnaire"variant="contained" onClick={handleSubmit}>Submit</Button>
+          <Button className="submit-button-questionnaire" variant="contained" onClick={handleSubmit}>Submit</Button>
         )}
       </div>
       <Snackbar
-                open={snackbarOpen}
-                autoHideDuration={3000}
-                onClose={handleCloseSnackbar}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-            >
-                <SnackbarContent
-                    style={{ backgroundColor: '#525765' }}
-                    message={
-                        <span style={{ display: 'flex', alignItems: 'center' }}>
-                            <ErrorIcon style={{ marginRight: '8px' }} />
-                            Please answer all questions on this page before proceeding.
-                        </span>
-                    }
-                />
-            </Snackbar>
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <SnackbarContent
+          style={{ backgroundColor: '#525765' }}
+          message={
+            <span style={{ display: 'flex', alignItems: 'center' }}>
+              <ErrorIcon style={{ marginRight: '8px' }} />
+              Please answer all questions on this page before proceeding.
+            </span>
+          }
+        />
+      </Snackbar>
     </div>
   );
 };

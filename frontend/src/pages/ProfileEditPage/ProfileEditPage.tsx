@@ -76,7 +76,6 @@ const ProfileEditPage: React.FC = () => {
         const name = e.target.name;
         let value: string;
 
-        // Check if the event is from Material-UI Select
         if ((e as SelectChangeEvent).target) {
             value = (e as SelectChangeEvent<string>).target.value;
         } else {
@@ -105,7 +104,6 @@ const ProfileEditPage: React.FC = () => {
         e.preventDefault();
 
         const formData = new FormData();
-        // Append all profileData fields except for 'profilePicture'
         Object.entries(profileData).forEach(([key, value]) => {
             formData.append(key, value);
         });
@@ -131,7 +129,7 @@ const ProfileEditPage: React.FC = () => {
             setTimeout(() => {
                 setOpenModal(false);
                 redirectToViewProfile();
-            }, 3000); // Wait for 3 seconds before redirecting
+            }, 3000); 
         } catch (error) {
             console.error("Failed to update profile", error);
             setSnackbarMessage("Failed to update profile");

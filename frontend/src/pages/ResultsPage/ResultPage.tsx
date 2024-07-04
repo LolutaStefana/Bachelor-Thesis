@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import TherapistCard from '../../components/TherapistCard/TherapistCard'; // Ensure this component is correctly imported
-import NotFoundImage from '../../assets/not_found.svg'; // Update path as needed
+import TherapistCard from '../../components/TherapistCard/TherapistCard'; 
+import NotFoundImage from '../../assets/not_found.svg'; 
 import { Typography} from '@mui/material';
 
 const ResultsPage = () => {
@@ -18,7 +18,7 @@ const ResultsPage = () => {
       </Typography>
       <div className="therapist-list">
       {therapists.length > 0 ? (
-        therapists.map((therapist: { id: React.Key | null | undefined; name: string; email: string; country: string | undefined; city: string | undefined; gender: string | undefined; description: string; profilePicture: string; domain_of_interest: string; years_of_experience: number; is_verified: boolean | undefined; }) => (
+        therapists.map((therapist: { id: React.Key | null | undefined; name: string; email: string; country: string | undefined; city: string | undefined; gender: string | undefined; description: string; profile_picture: string; domain_of_interest: string; years_of_experience: number; is_verified: boolean | undefined; }) => (
           <TherapistCard
             key={therapist.id}
             id={therapist.id as number}
@@ -28,7 +28,7 @@ const ResultsPage = () => {
             city={therapist.city}
             gender={therapist.gender}
             description={therapist.description}
-            profilePicture={therapist.profilePicture ? therapist.profilePicture : `http://localhost:8000/media/profile_pictures/blank.jpg`}
+            profilePicture={therapist.profile_picture ? therapist.profile_picture : `http://localhost:8000/media/profile_pictures/blank.jpg`}
             domainOfInterest={therapist.domain_of_interest} 
             yearsOfExperience={therapist.years_of_experience}
             isVerified={therapist.is_verified}

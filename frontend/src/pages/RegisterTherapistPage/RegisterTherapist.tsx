@@ -9,16 +9,16 @@ import TwoFAInput from '../../components/TwoFAComponent/TwoFAInput';
 import '../RegisterPage/register.css';
 
 interface TherrapistData {
-   name: string;
-  email: string;
-  password: string;
-  country: string;
-  city: string;
-  gender: string;
-  date_of_birth: string; 
-  description: string;
-  domain_of_interest: string;
-  years_of_experience: string;
+    name: string;
+    email: string;
+    password: string;
+    country: string;
+    city: string;
+    gender: string;
+    date_of_birth: string;
+    description: string;
+    domain_of_interest: string;
+    years_of_experience: string;
 }
 
 
@@ -28,19 +28,19 @@ const RegisterTherapist = () => {
     const [twoFACode, setTwoFACode] = useState('');
     const [is2FAVerified, setIs2FAVerified] = useState(false);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
-const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarMessage, setSnackbarMessage] = useState('');
 
     const [userData, setUserData] = useState<TherapistFormData>({
-    name: '',
-    email: '',
-    password: '',
-    country: '',
-    city: '',
-    gender: '',
-    date_of_birth: '', 
-    description: '',
-    domain_of_interest: '',
-    years_of_experience: '',
+        name: '',
+        email: '',
+        password: '',
+        country: '',
+        city: '',
+        gender: '',
+        date_of_birth: '',
+        description: '',
+        domain_of_interest: '',
+        years_of_experience: '',
         confirm_password: '',
     });
     const [errors, setErrors] = useState<Partial<TherapistFormData>>({});
@@ -48,7 +48,7 @@ const [snackbarMessage, setSnackbarMessage] = useState('');
     const navigate = useNavigate();
 
     const fieldsOrder = [
-        'name', 'country', 'city', 'gender', 'date_of_birth', 'description','domain_of_interest','years_of_experience', 'credentials', 'twoFA'
+        'name', 'country', 'city', 'gender', 'date_of_birth', 'description', 'domain_of_interest', 'years_of_experience', 'credentials', 'twoFA'
     ];
 
     const validateField = (name: string, value: string) => {
@@ -76,7 +76,7 @@ const [snackbarMessage, setSnackbarMessage] = useState('');
         if (stepIndex > 0) setStepIndex(stepIndex - 1);
     };
 
-    interface TherapistFormData extends TherrapistData  {
+    interface TherapistFormData extends TherrapistData {
         confirm_password: string;
         [key: string]: string;
     }
@@ -93,7 +93,7 @@ const [snackbarMessage, setSnackbarMessage] = useState('');
         setSnackbarMessage(message);
         setSnackbarOpen(true);
     };
-    
+
     const closeSnackbar = () => {
         setSnackbarOpen(false);
     };
@@ -111,8 +111,7 @@ const [snackbarMessage, setSnackbarMessage] = useState('');
             console.error('Some fields are invalid.');
             return;
         }
-      if (is2FASent && !is2FAVerified) {
-            // Verify the 2FA code
+        if (is2FASent && !is2FAVerified) {
             const verificationResponse = await fetch('http://localhost:8000/api/send-2fa-email', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -123,9 +122,9 @@ const [snackbarMessage, setSnackbarMessage] = useState('');
                 setIs2FAVerified(true);
                 const { confirm_password, ...dataToSubmit } = userData;
                 const formData = {
-                              ...dataToSubmit,
-                              is_therapist: true 
-                            };
+                    ...dataToSubmit,
+                    is_therapist: true
+                };
                 const response = await fetch('http://localhost:8000/api/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -144,7 +143,6 @@ const [snackbarMessage, setSnackbarMessage] = useState('');
                 openSnackbar('Incorrect 2FA code. Please try again.');
             }
         } else if (!is2FASent) {
-            // Send the 2FA code
             const send2FAResponse = await fetch('http://localhost:8000/api/send-2fa-email', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -154,10 +152,8 @@ const [snackbarMessage, setSnackbarMessage] = useState('');
             if (send2FAResponse.ok) {
                 setIs2FASent(true);
                 handleNext();
-                // Notify the user to check their email for the 2FA code
             } else {
                 console.error('Failed to send 2FA code');
-                // Handle error
             }
         }
     };
@@ -249,7 +245,7 @@ const [snackbarMessage, setSnackbarMessage] = useState('');
                 );
             default:
                 break;
-                case 'twoFA':
+            case 'twoFA':
                 return (
                     <>
                         <Typography variant="h6" className='set-accoutn-text' gutterBottom>Enter the code sent to your email</Typography>
@@ -284,7 +280,7 @@ const [snackbarMessage, setSnackbarMessage] = useState('');
             <LinearProgress variant="determinate" value={progress} style={{ margin: '20px 0' }} />
             <Typography variant="h4" gutterBottom className='centered-text'>Help us set up your account as a therapist</Typography>
             <Typography variant="body1" gutterBottom className="centered-text">
-            Begin your journey as a therapist by setting up your account. We're excited to have you join our community! To create the best experience for you and your clients, we need to gather some information. Please fill in the following details.
+                Begin your journey as a therapist by setting up your account. We're excited to have you join our community! To create the best experience for you and your clients, we need to gather some information. Please fill in the following details.
             </Typography>
 
             <div className="register-container">
@@ -324,25 +320,25 @@ const [snackbarMessage, setSnackbarMessage] = useState('');
                 </form>
             </div>
             <Snackbar
-    anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'right',
-    }}
-    open={snackbarOpen}
-    autoHideDuration={3000} // Adjust as needed
-    onClose={closeSnackbar}
->
-   
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                }}
+                open={snackbarOpen}
+                autoHideDuration={3000}
+                onClose={closeSnackbar}
+            >
 
-    <SnackbarContent
-        message={snackbarMessage}
-        action={
-            <IconButton size="small" aria-label="close" color="inherit" onClick={closeSnackbar}>
-                <CloseIcon fontSize="small" />
-            </IconButton>
-        }
-    />
-</Snackbar>
+
+                <SnackbarContent
+                    message={snackbarMessage}
+                    action={
+                        <IconButton size="small" aria-label="close" color="inherit" onClick={closeSnackbar}>
+                            <CloseIcon fontSize="small" />
+                        </IconButton>
+                    }
+                />
+            </Snackbar>
         </div>
     );
 };

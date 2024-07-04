@@ -3,7 +3,7 @@
     max-width: 960px;
     margin: 40px auto;
     padding: 20px;
-    background: rgb(215,216,244);
+    background: rgb(215, 216, 244);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     font-family: 'Arial', sans-serif;
@@ -20,8 +20,8 @@
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    margin-top: -75px; 
-    border: 4px solid #ffffff73; 
+    margin-top: -75px;
+    border: 4px solid #ffffff73;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -49,28 +49,29 @@
     line-height: 1.4;
     margin-bottom: 8px;
 }
+
 .details-flex-container-details-page {
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
 }
 
 .therapist-description-details-page {
-    max-width: 500px; 
+    max-width: 500px;
     margin: 0 auto 20px;
     padding: 30px;
-    background: #f9f9f92e; 
+    background: #f9f9f92e;
     border-radius: 8px;
-    color:rgb(85,89,101);
+    color: rgb(85, 89, 101);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow-wrap: break-word; 
+    overflow-wrap: break-word;
     word-wrap: break-word;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 
 .detail-section-details-page {
-    flex-basis: 48%; 
+    flex-basis: 48%;
     margin-bottom: 20px;
 }
 
@@ -78,31 +79,32 @@
 .schedule-button {
     position: absolute;
     filter: drop-shadow(8px 8px 10px rgb(128, 128, 137));
-    transition: transform 0.3s ease; 
-    top: 20px; /* Adjust as necessary for top-right placement */
-    right: 20px; /* Adjust as necessary for top-right placement */
-    background-color: rgba(174, 188, 242, 0.146); /* Removes the default button background */
-    border: none; /* Removes the default button border */
-    cursor: pointer; /* Changes cursor to pointer on hover */
-    padding: 8px; /* Adjust as necessary for spacing around the image */
-   border-radius: 10px;
-   
+    transition: transform 0.3s ease;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(174, 188, 242, 0.146);
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 10px;
+
     display: flex;
     align-items: center;
-   
-    
-    
+
+
+
 }
+
 .schedule-button .schedule-icon {
     margin-right: 10px;
-    width: 45px; /* Adjust as needed */
-    height: auto; /* Adjust as needed */
-  }
+    width: 45px;
+    height: auto;
+}
 
 .schedule-button:hover {
-   
-    transform: scale(1.1); 
-    
+
+    transform: scale(1.1);
+
 }
 
 
@@ -111,9 +113,10 @@
     color: #555;
     font-size: 16px;
 }
+
 .modal-body h2 {
     margin-bottom: 20px;
-   
+
     font-size: 25px;
     font-weight: bold;
 }
@@ -141,10 +144,10 @@
 
 .modal-confirm-button {
     background: rgba(21, 21, 23, 0.5);
-  
-  background: -webkit-linear-gradient(to right, rgba(1, 1, 1, 0.507), rgba(191, 149, 239, 0.53));
 
-  background: linear-gradient(to right, rgba(1, 1, 1, 0.507), rgba(191, 149, 239, 0.53));
+    background: -webkit-linear-gradient(to right, rgba(1, 1, 1, 0.507), rgba(191, 149, 239, 0.53));
+
+    background: linear-gradient(to right, rgba(1, 1, 1, 0.507), rgba(191, 149, 239, 0.53));
     color: white;
     padding: 15px 30px;
     border: none;
@@ -179,6 +182,7 @@
         height: 120px;
         margin-top: -60px;
     }
+
     .details-flex-container-details-page {
         flex-direction: column;
     }
@@ -187,4 +191,3 @@
         flex-basis: 100%;
     }
 }
-

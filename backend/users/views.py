@@ -137,20 +137,16 @@ class Send2FAEmailAPIView(APIView):
         if not email:
             return JsonResponse({"error": "Email address is required."}, status=400)
 
-        # Check if this is a verification attempt (twoFACode is provided)
         if two_fa_code:
-            # Attempt to verify the 2FA code
             expected_code = cache.get(f"2fa_code_{email}")
             if two_fa_code == expected_code:
-                cache.delete(f"2fa_code_{email}")  # Clear the code after successful verification
-                # Proceed with registration or next steps here
+                cache.delete(f"2fa_code_{email}")
                 return JsonResponse({"message": "2FA code verified successfully."})
             else:
                 return JsonResponse({"error": "Invalid or expired 2FA code."}, status=400)
 
-        # For sending the 2FA code
         two_fa_code = get_random_string(length=6, allowed_chars='1234567890')
-        cache.set(f"2fa_code_{email}", two_fa_code, timeout=300)  # 5 minutes expiry
+        cache.set(f"2fa_code_{email}", two_fa_code, timeout=300)
 
         subject = 'Your 2FA Verification Code'
         message = f'Your verification code is: {two_fa_code}'
@@ -161,12 +157,11 @@ class Send2FAEmailAPIView(APIView):
         return JsonResponse({"message": "2FA code sent successfully."})
 class UserProfileUpdateView(APIView):
     def put(self, request, *args, **kwargs):
-        # Extract the JWT token from the request cookies (or headers, depending on your setup)
-        token = request.COOKIES.get('jwt')  # Or request.headers.get('Authorization')
+
+        token = request.COOKIES.get('jwt')
         if not token:
             return JsonResponse({'error': 'Authentication credentials were not provided.'}, status=401)
 
-        # Verify the JWT token and get the user
         try:
             user = verify_jwt_token(token)
         except jwt.ExpiredSignatureError:
@@ -176,7 +171,7 @@ class UserProfileUpdateView(APIView):
         except AuthenticationFailed as e:
             return JsonResponse({'error': str(e)}, status=401)
 
-        # Proceed with updating the user profile
+
         serializer = UserProfileUpdateSerializer(user, data=request.data, partial=True)
 
         if serializer.is_valid():
@@ -260,7 +255,6 @@ class EvaluateResponsesView(APIView):
         scores = {key: 0 for key in CATEGORIES.keys()}
         max_scores = {key: 0 for key in CATEGORIES.keys()}
 
-        # Calculate scores and max_scores based on weights
         for question_id, answer_value in data.items():
             question_id = int(question_id)
             for category, details in CATEGORIES.items():
@@ -269,16 +263,14 @@ class EvaluateResponsesView(APIView):
                     scores[category] += answer_value * weight
                     max_scores[category] += 5 * weight
 
-        # Identify the two highest scores
         top_two_categories = sorted(scores.items(), key=lambda x: x[1], reverse=True)[:2]
 
-        # Find therapists that match these categories
         therapists = User.objects.filter(
             is_therapist=True,
             domain_of_interest__in=[category[0] for category in top_two_categories]
         )
 
-        # Serialize therapist data
+
         therapist_data = [
             {
                 'id': therapist.id,

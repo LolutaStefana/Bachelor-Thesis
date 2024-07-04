@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
-// Extend the interface to include isTherapist
 interface AuthContextType {
     userId: number | null;
     setUserId: (id: number | null) => void;
@@ -10,8 +9,8 @@ interface AuthContextType {
     photoUrl: string | null;
     setPhotoUrl: (url: string | null) => void;
     refreshUserData: () => void;
-    isTherapist: boolean; // Add isTherapist to the Auth context
-    setIsTherapist: (value: boolean) => void; // Add setter for isTherapist
+    isTherapist: boolean; 
+    setIsTherapist: (value: boolean) => void; 
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -21,11 +20,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [name, setName] = useState('');
     const [loading, setLoading] = useState(true);
     const [photoUrl, setPhotoUrl] = useState<string | null>(null);
-    const [isTherapist, setIsTherapist] = useState<boolean>(false); // Initialize isTherapist state
+    const [isTherapist, setIsTherapist] = useState<boolean>(false); 
 
     useEffect(() => {
         refreshUserData();
-    }, []); // Run only once when the component mounts
+    }, []);
 
     const refreshUserData = async () => {
         setLoading(true);
@@ -43,7 +42,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                     : `http://localhost:8000/media/profile_pictures/blank.jpg`;
                 setPhotoUrl(fullPhotoUrl);
 
-                // Check for is_therapist field in the response
                 setIsTherapist(content.is_therapist || false);
             } else {
                 setUserId(null);
@@ -81,8 +79,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         </AuthContext.Provider>
     );
 };
-
-// Hook to access the Auth context
 export const useAuth = () => {
     const context = useContext(AuthContext);
     if (context === undefined) {

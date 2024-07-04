@@ -3,7 +3,7 @@ import { Typography, Box, useTheme } from '@mui/material';
 
 interface WelcomeBannerProps {
     name: string;
-    description?: string; // Optional description prop
+    description?: string; 
 }
 
 const WelcomeBanner: React.FC<WelcomeBannerProps> = ({ name, description }) => {

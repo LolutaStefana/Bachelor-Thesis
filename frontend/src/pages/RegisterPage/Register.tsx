@@ -110,7 +110,6 @@ const Register = () => {
             return;
         }
         if (is2FASent && !is2FAVerified) {
-            // Verify the 2FA code
             const verificationResponse = await fetch('http://localhost:8000/api/send-2fa-email', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -118,7 +117,6 @@ const Register = () => {
             });
 
             if (verificationResponse.ok) {
-                //set the profile picure as default profile picture
                
                 setIs2FAVerified(true);
                 const { confirm_password, ...dataToSubmit } = userData;
@@ -131,11 +129,6 @@ const Register = () => {
 
                 if (response.ok) {
                     
-        // Clear the form/page data if necessary
-        // For example, you could reset user data or navigate immediately
-        // setUserData({ ...initialUserDataState });
-
-        // Wait 3 seconds before navigating to the login page
         setTimeout(() => {
             navigate('/login');
         }, 3000);
@@ -149,7 +142,6 @@ const Register = () => {
                 openSnackbar('Incorrect 2FA code. Please try again.');
             }
         } else if (!is2FASent) {
-            // Send the 2FA code
             const send2FAResponse = await fetch('http://localhost:8000/api/send-2fa-email', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -159,10 +151,8 @@ const Register = () => {
             if (send2FAResponse.ok) {
                 setIs2FASent(true);
                 handleNext();
-                // Notify the user to check their email for the 2FA code
             } else {
                 console.error('Failed to send 2FA code');
-                // Handle error
             }
         }
     }
@@ -327,7 +317,7 @@ const Register = () => {
         horizontal: 'right',
     }}
     open={snackbarOpen}
-    autoHideDuration={3000} // Adjust as needed
+    autoHideDuration={3000} 
     onClose={closeSnackbar}
 >
    
